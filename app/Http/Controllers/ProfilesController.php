@@ -24,11 +24,11 @@ class ProfilesController extends Controller
 
     public function update(User $user)
     {
-        $data = [
+        $data = request()->validate([
             'intro_self' => 'required',
-            'prof_url' => 'required',
+            'prof_url' => 'url',
             'prof_image' => ''
-        ];
+        ]);
 
         return redirect("/profile/{$user->id}");
     }
