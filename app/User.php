@@ -42,7 +42,11 @@ class User extends Authenticatable
         parent::boot();
 
         static::created(function ($user){
-            $user->profile()->create();
+            $user->profile()->create([
+                'intro_self' => 'Noy Edited',
+                'prof_url' => 'Not Edited',
+                'prof_image' => 'Not Edited',
+            ]);
         });
     }
 
