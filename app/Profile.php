@@ -13,4 +13,9 @@ class Profile extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }
