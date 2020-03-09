@@ -7,6 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Profile::class, function (Faker $faker) {
     return [
-        //
+        'intro_self' => $faker->sentence,
+        'prof_url' => $faker->url,
+        'prof_image' => $faker->imageUrl(),
     ];
 });
