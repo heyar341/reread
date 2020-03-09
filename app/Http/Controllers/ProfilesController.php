@@ -14,4 +14,13 @@ class ProfilesController extends Controller
         return view('profiles.index',compact(['user',]));
 
     }
+
+    public function edit($user_id)
+    {
+        $user = User::findOrFail($user_id);
+
+        $this->authorize('update', $user->profile);
+        return view('profiles.edit', compact('user'));
+
+    }
 }

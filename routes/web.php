@@ -18,3 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('profile/{user_id}','ProfilesController@indec');
+Route::get('profile/{user_id}/edit','ProfilesController@edit');
