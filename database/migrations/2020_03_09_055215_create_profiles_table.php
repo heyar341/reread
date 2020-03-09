@@ -15,6 +15,10 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('intro_self')->default('Not edited');
+            $table->string('prof_url')->default('Not edited');
+            $table->string('prof_image')->default('Not edited');
             $table->timestamps();
         });
     }
