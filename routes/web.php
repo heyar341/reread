@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('profile/{user}','ProfilesController@indec');
+Route::get('profile/{user}','ProfilesController@index');
 Route::get('profile/{user}/edit','ProfilesController@edit');
 Route::patch('profile/{user}','ProfilesController@update');
