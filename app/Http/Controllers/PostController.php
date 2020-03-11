@@ -57,8 +57,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
 //アクセス時、閲覧数カウントを追加
-        $post->viewed_count += 1;
-        $post->save();
+        $post->increment('viewed_count',1);
         return view('posts.show',compact('post'));
 
     }
