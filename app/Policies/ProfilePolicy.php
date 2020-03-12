@@ -77,7 +77,7 @@ class ProfilePolicy
      */
     public function restore(User $user, Profile $profile)
     {
-        //
+        return $user->id == $profile->user_id;
     }
 
     /**
