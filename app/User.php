@@ -69,7 +69,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 //  Userがお気に入りに追加する
-    public function like()
+    public function likes()
     {
         return $this->belongsToMany('App\Post');
     }

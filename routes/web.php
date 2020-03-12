@@ -17,7 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Follow用ルート
 Route::post('follow/{user}','FollowsController@store');
+
+//お気に入り用ルート
+Route::post('favorite/{post}','FavoriteController@store');
+
 
 //Profile用ルート
 Route::get('profile/{user}','ProfileController@index');
