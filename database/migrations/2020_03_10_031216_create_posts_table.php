@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('thumbnail_comment');
-            $table->longText('main_content');
+            $table->mediumText('main_content');
             $table->integer('post_state');//1:公開,2:非公開,3:下書きの状態を入れる
             $table->integer('viewed_count')->default(0);
             $table->timestamps();
