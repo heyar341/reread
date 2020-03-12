@@ -15,6 +15,7 @@ class PostTest extends TestCase
     /** @test
      * Userが投稿可能であることのテスト
      */
+
     public function a_user_can_create_a_post()
     {
         $user = factory(User::class)->create();
@@ -76,7 +77,8 @@ class PostTest extends TestCase
         $response->assertRedirect('/post');
     }
 
-    
+
+
     //投稿作成時のダミーデータ
     private function requestArray(): array
     {
