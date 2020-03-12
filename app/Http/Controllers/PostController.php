@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware('auth');
+        $this->authorizeResource(Post::class,'post');
     }
 
     /**
@@ -21,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        Post::all()->latest()->pagenate(9);
+        $posts = Post::all()->latest()->pagenate(9);
+        return view('posts.index')->with($posts);
     }
 
     /**
@@ -42,10 +43,9 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = request()->validate();
-        auth()->user()->posts()->create($data);
+        auth()->user()->posts()->create($request->all());
 
-        return redirect('post')->with('success','投稿しました!');
+        return redirect('/post')->with('success','投稿しました!');
     }
 
     /**
@@ -70,8 +70,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $user = User::finOrFail($post->user()->id);
-        $this->authorize('update',$user->post);
+        $user = User::query()->findOrFail($post->user_id);
         return view('posts.edit',compact('post'));
     }
 
@@ -82,12 +81,15 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        $data = request()->validate();
-        auth()->user()->posts()->update($data);
+        $post->thumbnail_comment = $request->input('thumbnail_comment');
+        $post->main_content = $request->input('main_content');
+        $post->post_state = $request->input('post_state');
 
-        return redirect('post')->with('success','投稿しました!');
+        $post->save();
+
+        return redirect('/post')->with('success','投稿しました!');
     }
 
     /**
@@ -100,6 +102,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect('post')->with('success', '投稿を削除しました!');
+        return redirect('/post')->with('success', '投稿を削除しました!');
     }
 }
