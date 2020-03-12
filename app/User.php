@@ -50,13 +50,28 @@ class User extends Authenticatable
         });
     }
 
+//Profile関連
+//　Userが持つprofile
     public function profile()
     {
         return $this->hasOne('App\Profile');
     }
-
+//  Userがfollowする
     public function following()
     {
         return $this->belongsToMany('App\Profile');
     }
+
+//Post関連
+//  Userが投稿する
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+//  Userがお気に入りに追加する
+    public function like()
+    {
+        return $this->belongsToMany('App\Post');
+    }
+
 }
