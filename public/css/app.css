@@ -4708,7 +4708,7 @@ input[type=button].btn-block {
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1044.98px) {
   .navbar-expand-lg > .container,
   .navbar-expand-lg > .container-fluid,
   .navbar-expand-lg > .container-sm,
@@ -4720,7 +4720,7 @@ input[type=button].btn-block {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1045px) {
   .navbar-expand-lg {
     flex-flow: row nowrap;
     justify-content: flex-start;
