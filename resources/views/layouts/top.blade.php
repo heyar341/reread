@@ -23,7 +23,7 @@
 </head>
 <body>
 <div id="app">
-    @include('inc.logged_in_navbar')
+    @include('inc.navbar')
 
     <main class="py-4 pt-70">
         @yield('content')

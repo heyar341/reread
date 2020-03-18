@@ -5,6 +5,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExample04">
+        {{--ナビゲーションバーの左側--}}
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link text-white border-left px-3" href="#">最新の投稿</a>
@@ -14,14 +15,26 @@
             </li>
         </ul>
 
-                <form class="form-inline my-2 my-md-0 d-flex">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="書籍名で投稿を検索">
-                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
-                    </div>
-                </form>
+　　　　　{{--検索フォーム--}}
+        <form class="form-inline my-2 my-md-0 d-flex">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="書籍名で投稿を検索">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
+            </div>
+        </form>
 
+        {{--ナビゲーションバーの右側--}}
         <ul class="navbar-nav ml-auto mr-5">
+            {{--ログインしていない場合--}}
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link nav-link-login btn btn-info mr-2 text-white " href="{{ route('login') }}">ログイン</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-register btn btn-success text-white" href="{{ route('register') }}">ユーザー登録</a>
+                </li>
+            {{--ログインしている場合--}}
+            @else
             <li class="nav-item">
                 <a class="nav-link nav-link-favorite text-white btn px-3 mr-2" style="max-width: 142px" href="#">お気に入り一覧</a>
             </li>
@@ -40,6 +53,7 @@
                     <a class="dropdown-item" href="{{ route('logout') }}">ログアウト</a>
                 </div>
             </li>
+            @endguest
         </ul>
     </div>
 </nav>
