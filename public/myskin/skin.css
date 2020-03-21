@@ -45,7 +45,7 @@
   float: none;
   height: auto;
   margin: 0;
-  max-width: none;
+  max-width: 640px;
   outline: 0;
   padding: 0;
   position: static;
@@ -1278,11 +1278,11 @@ button::-moz-focus-inner {
   margin-top: 0;
 }
 .tox .tox-dialog--width-lg {
-  height: 650px;
-  max-width: 1200px;
+  height: 500px;
+  max-width: 640px;
 }
 .tox .tox-dialog--width-md {
-  max-width: 800px;
+  max-width: 640px;
 }
 .tox .tox-dialog--width-md .tox-dialog__body-content {
   overflow: auto;
