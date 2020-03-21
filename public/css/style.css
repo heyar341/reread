@@ -9,9 +9,20 @@ body{
     background-color: #007700 ;
 }
 
+.nav-link-login {
+    background-color: #6cb2eb;
+    display: block;
+    padding: 0.5rem 1rem;
+}
 .nav-link-login:hover {
     border-bottom-color: transparent;
     transform: translate(0.1875em);
+}
+
+.nav-link-register {
+    background-color: #2d995b;
+    display: block;
+    padding: 0.5rem 1rem;
 }
 
 .nav-link-register:hover {
@@ -85,5 +96,7 @@ body{
         margin-left: 1px;
     }
 }
+
+
 
 
