@@ -28,6 +28,7 @@
     <main class="py-4 pt-70">
         @yield('content')
     </main>
+    @include('inc.footer')
 </div>
 </body>
 </html>
