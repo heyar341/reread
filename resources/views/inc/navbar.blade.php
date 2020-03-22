@@ -28,10 +28,10 @@
             {{--ログインしていない場合--}}
             @guest
                 <li class="nav-item">
-                    <a class="nav-link nav-link-login btn btn-info mr-2 text-white " href="{{ route('login') }}">ログイン</a>
+                    <a class="nav-link-login btn btn-info mr-2 text-white " href="{{ route('login') }}">ログイン</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-register btn btn-success text-white" href="{{ route('register') }}">ユーザー登録</a>
+                    <a class="nav-link-register btn btn-success text-white" href="{{ route('register') }}">ユーザー登録</a>
                 </li>
             {{--ログインしている場合--}}
             @else
@@ -39,7 +39,7 @@
                 <a class="nav-link nav-link-favorite text-white btn px-3 mr-2" style="max-width: 142px" href="#">お気に入り一覧</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link nav-link-post btn text-white px-3 mr-3" style="max-width: 142px" href="#">投稿する</a>
+                <a class="nav-link nav-link-post btn text-white px-3 mr-3" style="max-width: 142px" href="/post/create">投稿する</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マイページ</a>
