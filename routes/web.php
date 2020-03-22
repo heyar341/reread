@@ -31,3 +31,6 @@ Route::patch('profile/{user}','ProfileController@update');
 
 //Post用ルート
 Route::resource('post','PostController');
+
+//Mypage用ルート
+Route::get('mypage/{user}/{post_state}','MypageController@index');
