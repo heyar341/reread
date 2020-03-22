@@ -45,10 +45,9 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マイページ</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="{{--/{{auth()->user->profile}} --}}">プロフィール</a>
-                    <a class="dropdown-item" href="{{--投稿ページのURL--}}">公開済みの投稿</a>
-                    <a class="dropdown-item" href="{{--投稿ページのURL--}}">編集中の投稿</a>
-                    <a class="dropdown-item" href="{{--投稿ページのURL--}}">非公開の投稿</a>
-
+                    <a class="dropdown-item" href="/mypage/{{auth()->user()->id}}/1">公開済みの投稿</a>
+                    <a class="dropdown-item" href="/mypage/{{auth()->user()->id}}/2">非公開の投稿</a>
+                    <a class="dropdown-item" href="/mypage/{{auth()->user()->id}}/3">編集中の投稿</a>
 
                     <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
