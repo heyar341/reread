@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Mews\Purifier\Facades\Purifier;
 
 class PostController extends Controller
 {
@@ -43,7 +44,13 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        auth()->user()->posts()->create($request->all());
+        $post = new Post;
+        $post->thumbnail_comment = $request->thumbnail_comment;
+        $post->main_content = Purifier::clean($request->main_content);
+        $post->post_state = $request->post_state;
+
+        dd($post);
+        $post->save();
 
         return redirect('/post')->with('success','投稿しました!');
     }
@@ -84,7 +91,7 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $post->thumbnail_comment = $request->input('thumbnail_comment');
-        $post->main_content = $request->input('main_content');
+        $post->main_content = Purifier::clean($request->input('main_content'));
         $post->post_state = $request->input('post_state');
 
         $post->save();
