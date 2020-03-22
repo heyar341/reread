@@ -44,15 +44,13 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = new Post;
-        $post->thumbnail_comment = $request->thumbnail_comment;
-        $post->main_content = Purifier::clean($request->main_content);
-        $post->post_state = $request->post_state;
+        auth()->user()->posts()->create([
+        'thumbnail_comment' => $request->thumbnail_comment,
+        'main_content' => Purifier::clean($request->main_content),
+        'post_state' => $request->post_state,
+        ]);
 
-        dd($post);
-        $post->save();
-
-        return redirect('/post')->with('success','投稿しました!');
+        return redirect('/')->with('success','投稿しました!');
     }
 
     /**
@@ -77,7 +75,6 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $user = User::query()->findOrFail($post->user_id);
         return view('posts.edit',compact('post'));
     }
 
