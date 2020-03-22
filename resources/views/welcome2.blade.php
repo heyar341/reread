@@ -1,5 +1,15 @@
 @extends('layouts.top')
 
+@if(session('danger'))
+    <div class="alert alert-danger">
+        {{session('danger')}}
+    </div>
+    @endif
+@if(session('success'))
+    <div class="alert alert-success">
+        {{session('success')}}
+    </div>
+@endif
 @section('content')
     <div class="container mt-10">
         <div class="row justify-content-center">
