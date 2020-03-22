@@ -10,6 +10,11 @@
         {{session('success')}}
     </div>
 @endif
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{session('error')}}
+    </div>
+@endif
 @section('content')
     <div class="container mt-10">
         <div class="row justify-content-center">
