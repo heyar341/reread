@@ -39,7 +39,7 @@
                 <a class="nav-link nav-link-favorite text-white btn px-3 mr-2" style="max-width: 142px" href="#">お気に入り一覧</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link nav-link-post btn text-white px-3 mr-3" style="max-width: 142px" href="#">投稿する</a>
+                <a class="nav-link nav-link-post btn text-white px-3 mr-3" style="max-width: 142px" href="/post/create">投稿する</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マイページ</a>
