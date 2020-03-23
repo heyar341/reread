@@ -12,6 +12,10 @@ class MypageController extends Controller
         $this->middleware('auth');
     }
 
+    public function home(User $user){
+        return view('mypage.home',compact('user'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -20,22 +24,22 @@ class MypageController extends Controller
      * @param string $post_state
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user,$post_state ){
+    public function index(User $user,$post_state){
         //投稿したユーザーのみ閲覧可能
         if(auth()->user()->id == $user->id) {
             if ($post_state == 1) {
                 $posts = $user->posts()->where('post_state', 1)->get();
-                return view('mypage', compact('posts'))->with(['title' => '公開中の投稿']);
+                return view('mypage.postshow', compact('posts','user'));
 
             }
             if ($post_state == 2) {
                 $posts = $user->posts()->where('post_state', 2)->get();
-                return view('mypage', compact('posts'))->with(['title' => '非公開の投稿']);
+                return view('mypage.postshow', compact('posts','user'));
 
             }
             if ($post_state == 3) {
                 $posts = $user->posts()->where('post_state', 3)->get();
-                return view('mypage', compact('posts'))->with(['title' => '下書きの投稿']);
+                return view('mypage.postshow', compact('posts','user'));
 
             }
             else{

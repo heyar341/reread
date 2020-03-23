@@ -34,3 +34,4 @@ Route::resource('post','PostController');
 
 //Mypage用ルート
 Route::get('mypage/{user}/{post_state}','MypageController@index');
+Route::get('mypage/{user}','MypageController@home');

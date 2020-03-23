@@ -23,10 +23,25 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+         $defaultRules = [
             'intro_self' => 'string',
             'prof_url' => 'url',
-            'prof_image' => 'string',
+            'prof_image' => '',
+        ];
+
+         if(empty($this->intro_self)){
+             unset($defaultRules['intro_self']);
+         }
+        if(empty($this->prof_url)){
+            unset($defaultRules['prof_url']);
+        }
+        return $defaultRules;
+    }
+
+    public function messages()
+    {
+        return [
+            'url' => 'urlにはhttp://を含めてください。',
         ];
     }
 }
