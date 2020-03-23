@@ -43,9 +43,9 @@ class User extends Authenticatable
 
         static::created(function ($user){
             $user->profile()->create([
-                'intro_self' => 'Noy Edited',
+                'intro_self' => 'Not Edited',
                 'prof_url' => 'Not Edited',
-                'prof_image' => 'Not Edited',
+                'prof_image' => 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png',
             ]);
         });
     }
