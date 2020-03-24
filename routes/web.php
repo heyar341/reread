@@ -35,3 +35,7 @@ Route::resource('post','PostController');
 //Mypage用ルート
 Route::get('mypage/{user}/{post_state}','MypageController@index');
 Route::get('mypage/{user}','MypageController@home');
+
+//本の検索用
+Route::get('search_book','BookController@search');
+Route::post('search','BookController@show');
