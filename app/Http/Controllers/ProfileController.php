@@ -14,7 +14,7 @@ class ProfileController extends Controller
 {
     public function index(User $user)
     {
-        return view('profiles.index',compact('user'));
+        return view('profiles.index', compact('user'));
     }
 
     public function edit(User $user)
@@ -28,34 +28,43 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, User $user)
     {
         $profile = auth()->user()->profile;
-
-        if(empty($request->input('intro_self'))){
+        //自己紹介
+        //文字が空の場合
+        if (empty($request->input('intro_self'))) {
             $profile->intro_self = 'Not Edited';
-        }
-        else {
+        } else {
             $profile->intro_self = $request->input('intro_self');
         }
-        if(empty($request->input('prof_url'))){
+        //ユーザーのサイトURL
+        //URLが空の場合
+        if (empty($request->input('prof_url'))) {
             $profile->prof_url = 'Not Edited';
-        }
-        else {
+        } else {
             $profile->prof_url = $request->input('prof_url');
         }
 
-        if($request->prof_image){
+        //プロフィール画像
+        //画像を変更しない場合は何もしない
+        if ($request->prof_image === 'no') {
+        }
+        //ユーザーがデフォルトから変更後、もう一度デフォルトに戻る場合のため
+        if ($request->prof_image === 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png') {
+            $profile->prof_image = $request->prof_image;
+        }
+        //画像を変更する場合
+        else {
             //画像ファイルを変数に取り込む
             $imagefile = $request->file('prof_image');
             //画像の保存先パスを取得
-            $storagePath=$imagefile->store('uploads/profile_image','s3');
-            $image = Image::make($imagefile)->fit(300,300);
-            Storage::disk('s3')->put($storagePath, (string) $image->encode(),'public');
+            $storagePath = $imagefile->store('uploads/profile_image', 's3');
+            $image = Image::make($imagefile)->fit(300, 300);
+            Storage::disk('s3')->put($storagePath, (string)$image->encode(), 'public');
 
 
             //本番環境ではs3のバケットに合わせて変える
-            $profile->prof_image = "http://localhost:60007/test/".$storagePath;
+            $profile->prof_image = "http://localhost:60007/test/" . $storagePath;
         }
-
-        $profile->save();
-        return redirect("/profile/{$user->id}");
+            $profile->save();
+            return redirect("/profile/{$user->id}");
     }
 }
