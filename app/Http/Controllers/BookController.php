@@ -23,4 +23,12 @@ class BookController extends Controller
 
         return view('book.show',compact('books'));
     }
+
+    public function create(Request $request)
+    {
+        $book = $request->all();
+//        Eloquentじゃないから、アローで値を取り出すのではなく、配列として取り出す必要がある。
+//        dd($book['title']);
+        return view('posts.create',compact('book'));
+    }
 }
