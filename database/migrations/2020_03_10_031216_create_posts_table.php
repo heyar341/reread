@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('book_id');
             $table->string('thumbnail_comment');
             $table->mediumText('main_content');
             $table->integer('post_state');//1:公開,2:非公開,3:下書きの状態を入れる
