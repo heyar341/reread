@@ -23,19 +23,23 @@
                                 <p>{{ mb_substr($book->volumeInfo->description,0,50) }}･･･</p>
                             </div>
                             {{--書籍情報を投稿作成画面に渡す--}}
-                            <form action="/post/create" method="post">
+                            <form class="mx-auto mb-2" action="/post/create" method="post">
                                 @csrf
-                                <input type="hidden" value="{{ $book->id }}">
-                                <input type="hidden" value="{{ $book->volumeInfo->imageLinks->thumbnail }}">
-                                <input type="hidden" value="{{ $book->volumeInfo->title }}">
-                                <input type="hidden" value="{{ $book->volumeInfo->infoLink }}">
-                                <input type="hidden" value="{{ implode(',',$book->volumeInfo->authors) }}">
-                                <input type="hidden" value="{{ $book->volumeInfo->publishedDate }}">
-                                <input type="hidden" value="{{ $book->volumeInfo->pageCount}}">
-                                <input type="hidden" value="{{ $book->volumeInfo->description }}">
+                                {{--book->idは主キーとして使えないので、bookCodeとして保存--}}
+                                <input type="hidden" name="bookCode" value="{{ $book->id }}">
+                                <input type="hidden" name="thumbnail" value="{{ $book->volumeInfo->imageLinks->thumbnail }}">
+                                <input type="hidden" name="title" value="{{ $book->volumeInfo->title }}">
+                                <input type="hidden" name="infoLink" value="{{ $book->volumeInfo->infoLink }}">
+                                <input type="hidden" name="authors" value="{{ implode(',',$book->volumeInfo->authors) }}">
+                                <input type="hidden" name="publishedDate" value="{{ $book->volumeInfo->publishedDate }}">
+                                <input type="hidden" name="pageCount" value="{{ $book->volumeInfo->pageCount}}">
+                                <input type="hidden" name="description" value="{{ $book->volumeInfo->description }}">
+                                <div>
+                                <button class="btn text-white" style="background-color: #2C7CFF">要約を投稿する
+                                </button>
+                                </div>
                             </form>
-                            <button class="btn text-white mx-auto mb-2" style="background-color: #2C7CFF">要約を投稿する
-                            </button>
+
                         </div>
                     </div>
                 </div>
