@@ -15,11 +15,12 @@
                         </div>
                         {{--書籍情報の右側--}}
                         <div class="col-sm-9 mt-3">
-                            <h4>{{ $book->title }}</h4>
+                            <h4>@if(mb_strlen($book->title) > 45){{ mb_substr($book->title,0,45) }}
+                                ･･･@else {{ $book->title }}@endif</h4>
                             <a href="{{$book->infoLink}}">この書籍の詳細情報</a><br>
-                            <small>{{ $book->authors }}、</small>
+                            <small>著者：{{ $book->authors }}、</small>
                             <small>出版年：{{ $book->publishedDate }}、</small>
-                            <small>{{ $book->pageCount }}ページ</small>
+                            <small>ページ数：{{ $book->pageCount }}</small>
                             <p class="mt-2 mr-2">{{ mb_substr($book->description,0,100) }}･･･</p>
                         </div>
                     </div>

@@ -16,9 +16,9 @@
                         {{--書籍情報の右側--}}
                         <div class="col-sm-9 mt-3">
                             <h4>{{ $book['title'] }}</h4>
-                            <small>{{ $book['authors'] }}、</small>
+                            <small>著者：{{ $book['authors'] }}、</small>
                             <small>出版年：{{ $book['publishedDate'] }}、</small>
-                            <small>{{ $book['pageCount'] }}ページ</small>
+                            <small>ページ数：{{ $book['pageCount'] }}</small>
                             <p class="mt-2 mr-2">{{ mb_substr($book['description'],0,100) }}･･･</p>
                         </div>
                     </div>
