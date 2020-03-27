@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -11,8 +12,12 @@ class BookController extends Controller
         return view('book.search');
     }
 
-    public function show(Request $request){
-        $book_name = $request->book;
+    public function show(BookRequest $request){
+        $book_name_base = $request->bookName;
+        //半角の空白を+に置換
+        $book_name_remove_empty1 = str_replace(" ",'+',$book_name_base);
+        //全角のスペースを+に置換
+        $book_name = str_replace("　",'+',$book_name_remove_empty1);
         $search_url = "https://www.googleapis.com/books/v1/volumes?q=".$book_name."&maxResults=10&startIndex=0";
         $books_result = file_get_contents($search_url);
         $json_decoded_results = json_decode($books_result);
@@ -21,7 +26,7 @@ class BookController extends Controller
 //        dd($books);
 
 
-        return view('book.show',compact('books'));
+        return view('book.show',compact('books','book_name_base'));
     }
 
     public function create(Request $request)
