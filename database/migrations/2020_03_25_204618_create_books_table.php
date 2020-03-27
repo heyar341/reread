@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('infoLink');
             $table->string('authors');
             $table->string('publishedDate');
-            $table->integer('pageCount');
+            $table->string('pageCount');
             $table->string('description');
             $table->string('bookThumbnail');
             $table->timestamps();
