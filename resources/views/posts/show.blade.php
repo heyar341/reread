@@ -4,17 +4,32 @@
     <div class="container">
         <div class="row">
             {{------本の情報--}}
-            <div class="book_info mx-auto d-flex mb-5" style="max-width: 640px">
-                <div class="col-4">
-                    {{--                    <img src="#book_image_path">--}}
-                </div>
-                <div class="col-8">
-                    <p>Book_description</p>
+            <div class="col-lg-8 mx-auto">
+                <div class="card mb-3" style="max-width: 800px; min-height:150px">
+                    <div class="row">
+                        {{--書籍情報の左側--}}
+                        <div class="col-sm-3 mt-2">
+                            <img src="{{ $book->bookThumbnail }}"
+                                 class="ml-2 mb-1 d-block"
+                                 style="display: inline-block;max-height: 144px">
+                        </div>
+                        {{--書籍情報の右側--}}
+                        <div class="col-sm-9 mt-3">
+                            <h4>@if(mb_strlen($book->title) > 45){{ mb_substr($book->title,0,45) }}
+                                ･･･@else {{ $book->title }}@endif</h4>
+                            <a href="{{$book->infoLink}}">この書籍の詳細情報</a><br>
+                            <small>著者：{{ $book->authors }}、</small>
+                            <small>出版年：{{ $book->publishedDate }}、</small>
+                            <small>ページ数：{{ $book->pageCount }}</small>
+                            <p class="mt-2 mr-2">{{ mb_substr($book->description,0,100) }}･･･</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {{------投稿本文エリア--}}
             <div class="col-12">
+                <hr style="max-width: 800px">
                 <div class="mx-auto" style="max-width: 640px;">
                     <div class="main-content" style="min-height: 500px">{!! $post->main_content !!}</div>
                     <div class="viewed-count d-flex">
