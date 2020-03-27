@@ -34,12 +34,30 @@
                     <div class="main-content" style="min-height: 500px">{!! $post->main_content !!}</div>
                     <div class="viewed-count d-flex">
                         <div class="ml-auto mr-0">
-                            <span>閲覧数：{{ $post->viewed_count }}</span>
+                            <span><em>閲覧数：{{ $post->viewed_count }}</em></span>
                         </div>
                     </div>
                     {{--登録していないユーザー用--}}
                 @guest
+                        <hr>
+                        <div class="mx-auto" style="max-width: 525px">
+                            <h4>投稿者</h4>
+                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
+                                <img class="mr-3 rounded-circle" src="{{ $post->user->profile->prof_image }}"
+                                     width="65" height="65">
+                                <div class="lh-100">
+                                    <div class="d-flex">
+                                        <h3 class="ml-2 mb-0 text-black lh-100">{{ $post->user->username }}</h3>
+                                    </div>
+                                    <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif</div>
+                                </div>
+                            </div>
 
+                            <div class="border bg-white" style="min-height: 100px">
+                                <h6 class="ml-1">自己紹介：</h6>
+                                <p class="ml-2">@if($post->user->profile->intro_self != 'Not Edited'){{ $post->user->profile->intro_self }}@endif</p>
+                            </div>
+                        </div>
                     @endguest
                     @auth
                         {{--投稿ユーザー用--}}
@@ -65,14 +83,36 @@
                                 <button class="btn btn-danger">投稿を削除する</button>
                             </form>
                         </div>
-                    @endif
+                    @else
                     {{--ログイン済みの閲覧ユーザー用--}}
-                        <favoriteButton>{{--Vueでボタン作る--}}</favoriteButton>
+                    <div class="mb-5">
+                        <favorite-button post-id = "{{$post->id}}" favorite="{{ $favorite }}"></favorite-button>
+                    </div>
+                    <hr>
+                        <div class="mx-auto" style="max-width: 525px">
+                            <h4>投稿者</h4>
+                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
+                                <img class="mr-3 rounded-circle" src="{{ $post->user->profile->prof_image }}"
+                                     width="65" height="65">
+                                <div class="lh-100">
+                                    <div class="d-flex">
+                                    <h3 class="ml-2 mb-0 text-black lh-100">{{ $post->user->username }}</h3>
+                                    <follow-button user-id="{{ auth()->user()->id }}" follows="{{ $follows }}"></follow-button>
+                                    </div>
+                                        <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif</div>
+                                </div>
+                            </div>
+
+                            <div class="border bg-white" style="min-height: 100px">
+                                <h6 class="ml-1">自己紹介：</h6>
+                                <p class="ml-2">@if($post->user->profile->intro_self != 'Not Edited'){{ $post->user->profile->intro_self }}@endif</p>
+                            </div>
+                        </div>
+                        @endif
                     @endauth
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 @endsection

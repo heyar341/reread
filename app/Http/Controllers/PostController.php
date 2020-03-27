@@ -90,6 +90,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $follows = (auth()->user()) ? auth()->user()->following->contains($post->user->profile->id) : false ;
+        $favorite = (auth()->user()) ? auth()->user()->likes->contains($post->id) : false ;
         //書籍情報を取得
         $book = Book::find($post->book_id);
 
@@ -103,16 +105,25 @@ class PostController extends Controller
         }
 
         //post_state=1の時の処理
-        //アクセス時、閲覧数カウントを追加
-        if (auth()->user()->id == $post->user_id) {
-            return view('posts.show', compact('post', 'book'));
-        }
-        else {
+        //ユーザー以外
+        if(!Auth::check()){
+            //アクセス時、閲覧数カウントを追加
             $post->increment('viewed_count', 1);
             //update時順に並べる際に整合性を保つため、timestampは無効にする
             $post->timestamps = false;
             $post->save();
             return view('posts.show', compact('post', 'book'));
+        }
+        if(auth()->user()->id == $post->user_id) {
+            return view('posts.show', compact('post', 'book'));
+        }
+        else {
+            //アクセス時、閲覧数カウントを追加
+            $post->increment('viewed_count', 1);
+            //update時順に並べる際に整合性を保つため、timestampは無効にする
+            $post->timestamps = false;
+            $post->save();
+            return view('posts.show', compact('post', 'book','follows','favorite'));
         }
 
     }
