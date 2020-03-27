@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 1020px,
+    xl: 1200px
+);
+
+.nav-link{
+&:hover {
+    text-decoration: none;
+    background-color: #007700;
+    }
+&:focus {
+    text-decoration: none;
+    background-color: #007700;
+    }
+}
+
+$break-point:501px;
+@mixin max-screen($break-point){
+    @media screen and (max-width: $break-point){
+        @content;
+    }
+}
+.navbar-brand {
+    @include max-screen($break-point){
+        font-size: 1.5rem;
+        margin-left: 1px;
+    }
+    font-size: 1.5rem;
+    margin-left: 3rem;
+}

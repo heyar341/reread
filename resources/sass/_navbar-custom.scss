@@ -1,0 +1,49 @@
+.nav-link-login {
+    background-color: #6cb2eb;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+.nav-link-login {
+    &:hover {
+        border-bottom-color: transparent;
+        transform: translate(0.1875em);
+    }
+}
+.nav-link-register {
+    background-color: #2d995b;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+.nav-link-register {
+    &:hover {
+        border-bottom-color: transparent;
+        transform: translate(0.1875em);
+    }
+}
+.nav-link-favorite {
+    background-color: #8b0000;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link-favorite {
+    &:hover {
+        background-color: #8b0000;
+        border-bottom-color: transparent;
+        transform: translate(0.1875em);
+    }
+}
+
+.nav-link-post {
+    background-color: #8a2ba2;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link-post{
+    &:hover {
+        background-color: #8a2ba2;
+        border-bottom-color: transparent;
+        transform: translate(0.1875em);
+    }
+}
