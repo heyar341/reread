@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+body {
+  padding-top: 70px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
