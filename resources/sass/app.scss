@@ -8,3 +8,24 @@
 @import '~bootstrap/scss/bootstrap';
 @import "navbar-custom";
 @import "form-custom";
+
+.container{
+    @include min-screen(576px){
+        max-width: 540px;
+    }
+    @include min-screen(760px){
+        max-width: 720px;
+    }
+    @include min-screen(1020px){
+        max-width: 960px;
+    }
+    @include min-screen(1210px){
+        max-width: 1205px;
+    }
+    @include min-screen(1400px){
+        max-width: 1340px;
+    }
+    @include min-screen(1600px){
+        max-width: 1540px;
+    }
+}
