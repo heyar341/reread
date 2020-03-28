@@ -1,5 +1,3 @@
-<footer class="footer mt-auto py-3" style=" background-color: #005500; position: absolute; bottom: 0px">
-    <div class="container">
+<footer class="footer py-3" style=" background-color: #005500; margin-top: auto; width: 100%">
         <span class="text-muted">©︎ Copyright's reserved by reread.com</span>
-    </div>
 </footer>

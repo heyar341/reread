@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <!--TinyMCE用 -->
     <script src="https://cdn.tiny.cloud/1/bzhihshw66iu4sbm1p6ru690ztzi8ywr0lxhy0d4y9zb7mi0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

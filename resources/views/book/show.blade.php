@@ -1,4 +1,4 @@
-@extends('layouts.search_book')
+@extends('layouts.top')
 
 @section('content')
     <div class="container">
@@ -28,8 +28,8 @@
                                 <small>ページ数：@if(empty($book->volumeInfo->pageCount))
                                         不明@else{{ $book->volumeInfo->pageCount}}@endif
                                 </small>
-                                <p>@if(!empty($book->volumeInfo->description)){{ mb_substr($book->volumeInfo->description,0,50) }}@endif
-                                    @if(mb_strlen($book->volumeInfo->description) > 50 || empty($book->volumeInfo->description) )･･･@endif</p>
+                                <p>@if(!empty($book->volumeInfo->description)){{ mb_substr($book->volumeInfo->description,0,50) }}･･･@endif
+                                     @if(empty($book->volumeInfo->description) )･･･@endif</p>
                             </div>
                         </div>
                         {{--書籍情報を投稿作成画面に渡す--}}
