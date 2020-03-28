@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function search()
     {
         return view('book.search');
@@ -20,12 +27,30 @@ class BookController extends Controller
         $book_name = str_replace("　",'+',$book_name_remove_empty1);
         $search_url = "https://www.googleapis.com/books/v1/volumes?q=".$book_name."&maxResults=10&startIndex=0";
         $books_result = file_get_contents($search_url);
-        $json_decoded_results = json_decode($books_result);
+        $json_decoded_results = json_decode($books_result,true);
         //paginate()はDBに対してのメソッドだから使えない
-        $books = $json_decoded_results->items;
+        $books = $json_decoded_results['items'];
+
+        //各要素が空の場合の処理
+        for($i=0;$i<10;$i++){
+            if(empty($books[$i]['volumeInfo']['imageLinks']['thumbnail'])){
+                $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/no_image_avairable.png';
+            }
+             if(empty($books[$i]['volumeInfo']['authors'])){
+                 $books[$i]['volumeInfo']['authors'][0] = "不明";
+             }
+             if(empty($books[$i]['volumeInfo']['publishedDate'])){
+                 $books[$i]['volumeInfo']['publishedDate'] = "不明";
+             }
+             if(empty($books[$i]['volumeInfo']['pageCount'])){
+                 $books[$i]['volumeInfo']['pageCount'] = "不明";
+             }
+             if(empty($books[$i]['volumeInfo']['description'])){
+                 $books[$i]['volumeInfo']['description'] = "･･･";
+             }
+        }
+
 //        dd($books);
-
-
         return view('book.show',compact('books','book_name_base'));
     }
 
@@ -33,7 +58,6 @@ class BookController extends Controller
     {
         $book = $request->all();
 //        Eloquentじゃないから、アローで値を取り出すのではなく、配列として取り出す必要がある。
-//        dd($book['title']);
         return view('posts.create',compact('book'));
     }
 }
