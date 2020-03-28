@@ -48,7 +48,7 @@ class ProfileController extends Controller
         if ($request->prof_image === 'no') {
         }
         //ユーザーがデフォルトから変更後、もう一度デフォルトに戻る場合のため
-        if ($request->prof_image === 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png') {
+        elseif ($request->prof_image === 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png') {
             $profile->prof_image = $request->prof_image;
         }
         //画像を変更する場合
