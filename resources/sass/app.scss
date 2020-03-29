@@ -9,7 +9,10 @@
 @import "navbar-custom";
 @import "form-custom";
 
-.container{
+.container-home{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     @include min-screen(576px){
         max-width: 540px;
     }
