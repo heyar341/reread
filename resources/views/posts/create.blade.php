@@ -5,7 +5,7 @@
         <div class="row">
             {{------本の情報--}}
             <div class="col-lg-8 mx-auto">
-                <div class="card mb-3" style="max-width: 800px; min-height:150px">
+                <div class="card mb-3" style="min-height:150px">
                     <div class="row">
                         {{--書籍情報の左側--}}
                         <div class="col-sm-3 mt-2">

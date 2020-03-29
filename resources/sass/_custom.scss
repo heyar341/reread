@@ -21,12 +21,19 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
+@mixin min-screen($break-point){
+    @media screen and (min-width: $break-point){
+        @content;
+    }
+}
+
 $grid-breakpoints: (
     xs: 0,
     sm: 576px,
     md: 768px,
     lg: 1020px,
-    xl: 1200px
+    xl: 1210px
 );
 
 .nav-link{

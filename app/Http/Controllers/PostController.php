@@ -136,7 +136,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $book = $post->book;
+        return view('posts.edit', compact('post','book'));
     }
 
     /**

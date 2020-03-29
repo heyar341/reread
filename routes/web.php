@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome2');
-});
+Route::get('/','HomeController@index');
+Route::get('/today','HomeController@today');
+Route::get('/popular','HomeController@popular');
 
 Auth::routes();
 
@@ -31,6 +31,7 @@ Route::patch('profile/{user}','ProfileController@update');
 
 //Post用ルート
 Route::resource('post','PostController');
+Route::post('post/search','PostController@search');
 
 //Mypage用ルート
 Route::get('mypage/{user}/{post_state}','MypageController@index');

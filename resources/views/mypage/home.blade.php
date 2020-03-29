@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="mx-auto" style="max-width: 525px">
+        <div class="col-12 mx-auto" style="max-width: 525px">
             <div class="d-flex align-items-center p-3 mt-3 text-white bg-primary rounded shadow-sm">
                 <img class="mr-3 rounded-circle" src="{{ $user->profile->prof_image }}"
                      width="65" height="65">

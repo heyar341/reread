@@ -22,7 +22,7 @@ class Post extends Model
     }
 
     //お気に入り押したUserとの関係
-    public function isLiked()
+    public function is_liked()
     {
         return $this->belongsToMany('App\User');
     }
