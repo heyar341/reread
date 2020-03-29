@@ -3,7 +3,10 @@
 @section('content')
     <div class="container" id="">
         {{--            投稿表示の領域--}}
-
+        <div class="mx-auto mb-2 text-muted">
+            <h2>{{ $title }}</h2>
+        </div>
+        <div><hr></div>
         <div class="row d-flex">
             @foreach($posts as $post)
                 <div class="col-xl-4 col-lg-6 rounded mb-3">
@@ -35,12 +38,12 @@
                             <div class="col-12">
                                 <div class="d-flex border-top border-bottom align-items-center">
                                     <div class="col-5"><small class="rounded px-2" {{--isliked->count()だとクエリーが発行されるので、Eloquentのオブジェクト数を数えるようにした--}}
-                                                              style="background-color: #b91d19;color: white">お気に入り数：{{ count($post->isLiked) }}</small>
+                                                              style="background-color: #b91d19;color: white">お気に入り数：{{ count($post->is_liked) }}</small>
                                     </div>
                                     <div class="col-3"><small class="text-muted">閲覧数：{{ $post->viewed_count }}</small>
                                     </div>
                                     <div class="col-4"><small
-                                            class="text-muted">{{ mb_substr($post->created_at,6,10) }}</small></div>
+                                            class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small></div>
                                 </div>
 
                                 <div class="col-12">
