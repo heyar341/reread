@@ -34,13 +34,13 @@ Route::resource('post','PostController');
 Route::post('post/search','PostController@search');
 
 //Mypage用ルート
+Route::get('mypage/favorite/{user}','MypageController@favorite');
 Route::get('mypage/{user}/postshow','MypageController@showall');
 Route::get('follow/{user}/show','MypageController@follow');
 Route::get('follower/{user}/show','MypageController@follower');
 Route::get('mypage/{user}/delete_confirm','MypageController@predelete');
 Route::get('mypage/{user}/{post_state}','MypageController@index');
 Route::get('mypage/{user}','MypageController@home');
-
 
 //本の検索用
 Route::get('search_book','BookController@search');

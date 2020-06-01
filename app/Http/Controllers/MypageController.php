@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -110,5 +111,19 @@ class MypageController extends Controller
         else {
             return redirect('/')->with('error','他のユーザーのページです。');
         }
+    }
+
+    public function favorite(User $user)
+    {
+        //withCountメソッドとorderByメソッドでお気に入りが多い順に並べ替え
+        if(count($user->likes()->get())==0){
+            $posts = 0;
+        }
+        else {
+            $posts = $user->likes()->with(['book', 'is_liked', 'user.profile.followers'])->latest()->paginate(6);
+        }
+        $title = "お気に入り一覧";
+
+        return view('mypage.favorite', compact('posts','title'));
     }
 }
