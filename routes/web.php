@@ -39,6 +39,7 @@ Route::get('mypage/{user}/postshow','MypageController@showall');
 Route::get('follow/{user}/show','MypageController@follow');
 Route::get('follower/{user}/show','MypageController@follower');
 Route::get('mypage/{user}/delete_confirm','MypageController@predelete');
+Route::post('mypage/{user}/delete','MypageController@delete');
 Route::get('mypage/{user}/{post_state}','MypageController@index');
 Route::get('mypage/{user}','MypageController@home');
 
