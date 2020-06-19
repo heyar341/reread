@@ -126,4 +126,33 @@ class MypageController extends Controller
 
         return view('mypage.favorite', compact('posts','title'));
     }
+
+    public function predelete(User $user)
+    {
+        //ログインユーザーのみ閲覧可能
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'アクセス権限がありません');
+        }
+        if(auth()->user()->id == $user->id) {
+            return view("mypage.confirm_delete",compact('user'));
+        }
+        else {
+            return redirect('/')->with('error','他のユーザーのページです。');
+        }
+    }
+
+    public function delete(User $user)
+    {
+        //ログインユーザーのみ閲覧可能
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'アクセス権限がありません');
+        }
+        if(auth()->user()->id == $user->id) {
+            $user-delete();
+            return view("home.home")->with('success','ユーザーアカウントを削除しました !');
+        }
+        else {
+            return redirect('/')->with('error','他のユーザーのページです。');
+        }
+    }
 }
