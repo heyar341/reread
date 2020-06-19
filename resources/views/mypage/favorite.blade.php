@@ -4,11 +4,16 @@
     <div class="container-home container" id="">
         {{--            投稿表示の領域--}}
         <div class="mx-auto mb-2 text-muted">
-            <h2>マイページ：{{ $title }}</h2>
+            <h2>{{ $title }}</h2>
         </div>
         <div>
             <hr>
         </div>
+    @if(empty($posts))
+        <div class="mx-auto">
+        <h2 class="text-muted">お気に入りに追加した投稿はありません。</h2>
+        </div>
+    @else
         <div class="row d-flex">
             @foreach($posts as $post)
                 <div class="col-xl-4 col-lg-6 rounded mb-3">
@@ -68,16 +73,41 @@
                                                 class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small></div>
                                     </div>
                                 </div>
+
+                                {{--投稿表示のユーザー情報--}}
+                                <div class="col-12">
+                                    <div class="d-flex pb-2 align-items-center">
+                                        {{--ユーザー画像--}}
+                                        <div class="ml-1 mt-2 pr-3">
+                                            <img src="{{ $post->user->profile->prof_image }}"
+                                                 class="w-100 rounded-circle" style="max-width: 40px">
+                                        </div>
+                                        {{--ユーザー名--}}
+                                        <div class="font-weight-bold">
+                                            <a href="/profile/{{ $post->user->id }}">
+                                                <span class="text-dark">{{ $post->user->username }}</span>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <small
+                                                class="ml-3 text-muted">フォロワー：{{ count($post->user->profile->followers) }}
+                                                人</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+
     </div>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
             {{ $posts->links() }}
         </div>
     </div>
+    @endif
+
 @endsection

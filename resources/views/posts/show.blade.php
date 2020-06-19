@@ -97,7 +97,7 @@
                                 <div class="lh-100">
                                     <div class="d-flex">
                                     <h3 class="ml-2 mb-0 text-black lh-100">{{ $post->user->username }}</h3>
-                                    <follow-button user-id="{{ auth()->user()->id }}" follows="{{ $follows }}"></follow-button>
+                                    <follow-button user-id="{{ $post->user->id }}" follows="{{ $follows }}"></follow-button>
                                     </div>
                                         <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif</div>
                                 </div>

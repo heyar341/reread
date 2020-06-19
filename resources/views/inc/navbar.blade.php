@@ -37,7 +37,7 @@
             {{--ログインしている場合--}}
             @else
             <li class="nav-item">
-                <a class="nav-link-favorite text-white btn px-3 mr-2" style="max-width: 142px;" href="mypage/favorite">お気に入り一覧</a>
+                <a class="nav-link-favorite text-white btn px-3 mr-2" style="max-width: 142px;" href="/mypage/favorite/{{auth()->user()->id}}">お気に入り一覧</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link-post btn text-white px-3 mr-3" style="max-width: 142px" href="/search_book">投稿する</a>

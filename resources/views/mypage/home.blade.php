@@ -40,7 +40,7 @@
                 <div class="media text-muted pt-3">
                     <div class="media-body py-2 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <a href="follow/{{ $user->id }}/show"><h5 class="text-gray-dark">フォロワー</h5></a>
+                            <a href="/follower/{{ $user->id }}/show"><h5 class="text-gray-dark">フォロワー</h5></a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="media text-muted pt-3">
                     <div class="media-body py-2 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <a href="profile/edit"><h5 class="text-gray-dark">投稿済み一覧</h5></a>
+                            <a href="../mypage/{{ $user->id }}/postshow"><h5 class="text-gray-dark">投稿済み一覧</h5></a>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="media text-muted pt-3">
                     <div class="media-body py-2 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <a href="profile/edit"><h5 class="text-gray-dark">アカウントの削除</h5></a>
+                            <a href="../mypage/{{ $user->id }}/delete_confirm"><h5 class="text-gray-dark">アカウントの削除</h5></a>
                         </div>
                     </div>
                 </div>
