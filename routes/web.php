@@ -36,14 +36,14 @@ Route::post('post/search','PostController@search');
 //Mypage用ルート
 //authミドルウェアでログイン中か確認し、check_login_userミドルウェアでログイン中のユーザーのページか確認。
 Route::middleware(['auth','check_login_user'])->group(function () {
-    Route::get('mypage/favorite/{user}', 'MypageController@favorite');
-    Route::get('mypage/{user}/postshow', 'MypageController@showall');
-    Route::get('follow/{user}/show', 'MypageController@follow');
-    Route::get('follower/{user}/show', 'MypageController@follower');
-    Route::get('mypage/{user}/delete_confirm', 'MypageController@predelete');
-    Route::post('mypage/{user}/delete', 'MypageController@delete');
-    Route::get('mypage/{user}/{post_state}', 'MypageController@index');
-    Route::get('mypage/{user}', 'MypageController@home');
+    Route::get('mypage/favorite/{user}', 'MypageController@favorite')->where('user', '[0-9]+');
+    Route::get('mypage/{user}/postshow', 'MypageController@showall')->where('user', '[0-9]+');
+    Route::get('follow/{user}/show', 'MypageController@follow')->where('user', '[0-9]+');
+    Route::get('follower/{user}/show', 'MypageController@follower')->where('user', '[0-9]+');
+    Route::get('mypage/{user}/delete_confirm', 'MypageController@predelete')->where('user', '[0-9]+');
+    Route::post('mypage/{user}/delete', 'MypageController@delete')->where('user', '[0-9]+');
+    Route::get('mypage/{user}/{post_state}', 'MypageController@index')->where(['user'=>'[0-9]+','post_state'=>'[1-3]+']);
+    Route::get('mypage/{user}', 'MypageController@home')->where('user', '[0-9]+');
 });
 //本の検索用
 Route::get('search_book','BookController@search');
