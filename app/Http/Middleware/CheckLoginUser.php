@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Illuminate\Support\Facades\Auth;
 class CheckLoginUser
 {
     /**
@@ -17,9 +17,8 @@ class CheckLoginUser
     {
         //ルートパラメーターからuserを取得
         $user = $request->route()->parameter('user');
-
         //他のユーザーページにアクセスしようとしたら、ホームページに飛ばす。
-        if($user != auth()->user()){
+        if($user->id != auth()->user()->id){
             return redirect('/')->with('error','他のユーザーのページです。');
         }
 
