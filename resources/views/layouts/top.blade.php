@@ -23,7 +23,7 @@
 <body>
 <div id="app">
     @include('inc.navbar')
-
+    @include('inc.alert')
     <main class="py-4 pt-70">
         @yield('content')
     </main>
