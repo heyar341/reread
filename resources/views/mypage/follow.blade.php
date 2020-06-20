@@ -12,11 +12,10 @@
         @if(empty($follows))
             <h2 class="text-muted">フォローしたユーザーはいません。</h2>
         @else
-            <div class="row mx-auto">
                 @foreach($follows as $follow)
-                    <div class="col-12">
-                        <div class="d-flex align-items-center bg-white rounded border"
-                             style="height: 80px">
+                <div class="row col-12 justify-content-center">
+                    <div class="d-flex align-items-center bg-white rounded border"
+                         style="height: 80px; min-width: 300px">
                             <div>
                                 <img class="ml-2 mr-3 rounded-circle" src="{{ $follow->prof_image }}"
                                      width="50" height="50">
