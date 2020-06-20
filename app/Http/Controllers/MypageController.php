@@ -84,7 +84,27 @@ class MypageController extends Controller
     //ユーザーアカウント削除
     public function delete(User $user)
     {
+        if($user->likes()) {
+            $user->likes()->detach();
+        }
+        if($user->following()) {
+            $user->following()->detach();
+        }
+        if($user->profile->followers()) {
+            $user->profile->followers()->detach();
+        }
+        if($user->posts()) {
+            $posts = $user->posts();
+            foreach ($posts as $post){
+                if(!empty($post->is_liked()->first())) {
+                    $user->posts->is_liked()->detach();
+                }
+                $post->book()->detach();
+            }
+            $user->posts()->delete();
+        }
+        $user->profile()->delete();
         $user->delete();
-        return view("home.home")->with('success', 'ユーザーアカウントを削除しました !');
+        return redirect('/')->with('success', 'ユーザーアカウントを削除しました !');
     }
 }
