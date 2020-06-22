@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Book;
 use App\Post;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,66 +11,64 @@ use Tests\TestCase;
 
 class FavoriteTest extends TestCase
 {
-    /** @test Followのテスト */
     use RefreshDatabase;
+    /** @test お気に入り追加のテスト */
     public function a_user_can_add_a_post_favorite()
     {
-
-        $user = factory(User::class , 3)->create();
-//                                    ↑作成するインスタンスの数
-        $user_1 = $user->find(1);
-        $user_2 = $user->find(2);
-        $user_3 = $user->find(3);
-
+        $user_1 = factory(User::class)->create();
+        $user_2 = factory(User::class)->create();
+        $user_3 = factory(User::class)->create();
         //投稿を作成する
         $this->actingAs($user_2)->post('/post', $this->requestArray());
         $this->actingAs($user_3)->post('/post', $this->requestArray());
-
         //投稿をお気に入りに追加する
-        $this->actingAs($user_1)->post('/favorite/'.$user_2->posts()->first()->id);
-        $this->actingAs($user_1)->post('/favorite/'.$user_3->posts()->first()->id);
-
-        $likeCount = $user_1->likes()->count();
-
-        $this->assertCount(3,User::all());
-        $this->assertCount(2,Post::all());
-        $this->assertEquals(2,$likeCount);
+        $this->actingAs($user_1)->post('/favorite/' . $user_2->posts()->first()->id);
+        $this->actingAs($user_1)->post('/favorite/' . $user_3->posts()->first()->id);
+        $likeCount = count($user_1->likes()->get());
+        $this->assertCount(3, User::all());
+        $this->assertCount(2, Post::all());
+        $this->assertEquals(2, $likeCount);
     }
 
-//    /** @test UnFollowのテスト */
-    public function a_user_can_un_follow_another_user()
+    /** @test お気に入り解除wのテスト */
+    public function a_user_can_remove_a_post_favorite()
     {
-        $user = factory(User::class , 3)->create();
-//                                 ↓Refreshdatabaseを使っても、パフォーマンスの関係から、オートインクリメントはリセットされない。
-        $user_1 = $user->find(4);
-        $user_2 = $user->find(5);
-        $user_3 = $user->find(6);
-
+        $user_1 = factory(User::class)->create();
+        $user_2 = factory(User::class)->create();
+        $user_3 = factory(User::class)->create();
         //投稿を作成する
         $this->actingAs($user_2)->post('/post', $this->requestArray());
         $this->actingAs($user_3)->post('/post', $this->requestArray());
-
         //投稿をお気に入りに追加する
-        $this->actingAs($user_1)->post('/favorite/'.$user_2->posts()->first()->id);
-        $this->actingAs($user_1)->post('/favorite/'.$user_3->posts()->first()->id);
-        $this->assertCount(2,$user_1->likes);
+        $this->actingAs($user_1)->post('/favorite/' . $user_2->posts()->first()->id);
+        $this->actingAs($user_1)->post('/favorite/' . $user_3->posts()->first()->id);
+        $this->assertCount(2, $user_1->likes);
         //お気に入りから１つ削除する
-        $this->actingAs($user_1)->post('/favorite/'.$user_2->posts()->first()->id);
+        $this->actingAs($user_1)->post('/favorite/' . $user_2->posts()->first()->id);
 
-        $likeCount = $user_1->likes()->count();
-        $this->assertCount(3,User::all());
-        $this->assertEquals(1,$likeCount);
+        $likeCount = count($user_1->likes()->get());
+        $this->assertCount(3, User::all());
+        $this->assertEquals(1, $likeCount);
     }
 
 
     //投稿作成時のダミーデータ
     private function requestArray(): array
     {
-        $data = factory(Post::class)->make()->toArray();
+        $post_data = factory(Post::class)->make();
+        $book_data = factory(Book::class)->make();
         $array = [
-            'thumbnail_comment' => $data['thumbnail_comment'],
-            'main_content' => $data['main_content'],
-            'post_state' => $data['post_state'],
+            'thumbnail_comment' => $post_data->thumbnail_comment,
+            'main_content' => $post_data->main_content,
+            'post_state' => $post_data->post_state,
+            'bookCode' => $book_data->bookCode,
+            'title' => $book_data->title,
+            'infoLink' => $book_data->infoLink,
+            'authors' => $book_data->authors,
+            'publishedDate' => $book_data->publishedDate,
+            'pageCount' => $book_data->pageCount,
+            'description' => $book_data->description,
+            'thumbnail' => $book_data->thumbnail,
         ];
         return $array;
     }

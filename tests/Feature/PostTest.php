@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Book;
 use App\Post;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,10 +20,10 @@ class PostTest extends TestCase
     public function a_user_can_create_a_post()
     {
         $user = factory(User::class)->create();
-        $this->actingAs($user)->get('/post/create')->assertOk();
-        $response = $this->actingAs($user)->post('/post', $this->requestArray());
-        $response->assertRedirect('/post');
-
+        $this->actingAs($user)->post('/post/create',$this->requestArrayBook())->assertOk();
+        $response = $this->actingAs($user)->post('/post',
+            array_merge($this->requestArrayPost(),$this->requestArrayBook()));
+        $response->assertRedirect('/');
     }
 
     /** @test
@@ -32,14 +33,61 @@ class PostTest extends TestCase
     {
         //Userが投稿作成を行う
         $user1 = factory(User::class)->create();
-        $this->actingAs($user1)->get('/post/create')->assertOk();
-        $this->actingAs($user1)->post('/post/', $this->requestArray())->assertRedirect('/post');
+        $this->actingAs($user1)->post('/post/create',$this->requestArrayBook())->assertOk();
+        $data = factory(Post::class)->make();
+        $this->actingAs($user1)->post('/post/',
+            array_merge([
+                'thumbnail_comment' => $data->thumbnail_comment,
+                'main_content' => $data->main_content,
+                'post_state' => 1,
+            ],$this->requestArrayBook()))
+            ->assertRedirect('/');
         //複数のUserが投稿にアクセスする
         $users = factory(User::class,5)->create();
         foreach ($users as $user){
-            $this->actingAs($user)->get('/post/'.$user1->posts()->first()->id)->assertOk();
+            $this->actingAs($user)->get('/post/'.$user1->posts()->first()->id);
         }
+        //自分の投稿にアクセスしてもカウントされない。
+        $this->actingAs($user1)->get('/post/'.$user1->posts()->first()->id);
         $this->assertEquals(5,$user1->posts()->first()->viewed_count);
+    }
+
+    /** @test
+     * 非公開、または下書きの投稿でUserが閲覧できないテスト
+     */
+    public function a_user_can_not_visit_a_post_page()
+    {
+        //Userが投稿作成を行う
+        $user1 = factory(User::class)->create();
+        $this->actingAs($user1)->post('/post/create',$this->requestArrayBook())->assertOk();
+        $data = factory(Post::class)->make();
+        //非公開で投稿
+        $this->actingAs($user1)->post('/post/',
+            array_merge([
+                'thumbnail_comment' => $data->thumbnail_comment,
+                'main_content' => $data->main_content,
+                'post_state' => 2,
+            ],$this->requestArrayBook()))
+            ->assertRedirect('/');
+        //下書きで投稿
+        $this->actingAs($user1)->post('/post/',
+            array_merge([
+                'thumbnail_comment' => $data->thumbnail_comment,
+                'main_content' => $data->main_content,
+                'post_state' => 3,
+            ],$this->requestArrayBook()))
+            ->assertRedirect('/');
+        //複数のUserが投稿にアクセスする
+        $users = factory(User::class,5)->create();
+        foreach ($users as $user){
+            $this->actingAs($user)->get('/post/'.$user1->posts()->first()->id);
+            $this->actingAs($user)->get('/post/'.$user1->posts()->skip(1)->first()->id);
+        }
+        //自分の投稿にアクセスしてもカウントされない。
+        $this->actingAs($user1)->get('/post/'.$user1->posts()->first()->id);
+        $this->actingAs($user1)->get('/post/'.$user1->posts()->skip(1)->first()->id);
+        $this->assertEquals(0,$user1->posts()->first()->viewed_count);
+        $this->assertEquals(0,$user1->posts()->skip(1)->first()->viewed_count);
     }
 
     /** @test
@@ -49,17 +97,19 @@ class PostTest extends TestCase
     {
         //Userが投稿作成を行う
         $user = factory(User::class)->create();
-        $this->actingAs($user)->post('/post', $this->requestArray())->assertRedirect('/post');
+        $this->actingAs($user)->post('/post',
+            array_merge($this->requestArrayPost(),$this->requestArrayBook()))
+            ->assertRedirect('/');
         //User編集ページにアクセスする
         $this->actingAs($user)->get('/post/'.$user->posts()->first()->id.'/edit')->assertOk();
-        $requestUpdateArray = factory(Post::class)->make()->toArray();
+        $requestUpdateArray = array_merge($this->requestArrayPost(),$this->requestArrayBook());
         //Userが投稿内容編集する
         $response = $this->actingAs($user)->patch('/post/'.$user->posts()->first()->id,[
             'thumbnail_comment' => $requestUpdateArray['thumbnail_comment'],
             'main_content' => $requestUpdateArray['main_content'],
             'post_state' => $requestUpdateArray['post_state'],
         ]);
-        $response->assertRedirect('/post');
+        $response->assertRedirect("/post/{$user->posts()->first()->id}");
     }
 
     /** @test
@@ -69,25 +119,43 @@ class PostTest extends TestCase
     {
         //Userが投稿作成を行う
         $user = factory(User::class)->create();
-        $this->actingAs($user)->post('/post', $this->requestArray())->assertRedirect('/post');
+        $this->actingAs($user)->post('/post',
+            array_merge($this->requestArrayPost(),$this->requestArrayBook()))
+            ->assertRedirect('/');
         //Userが編集ページにアクセスする
         $this->actingAs($user)->get('/post/'.$user->posts()->first()->id.'/edit')->assertOk();
         //Userが投稿を削除する
         $response = $this->actingAs($user)->delete('/post/'.$user->posts()->first()->id);
-        $response->assertRedirect('/post');
+        $response->assertRedirect('/');
     }
 
 
 
     //投稿作成時のダミーデータ
-    private function requestArray(): array
+    private function requestArrayPost(): array
     {
-        $data = factory(Post::class)->make()->toArray();
+        $post_data = factory(Post::class)->make();
         $array = [
-            'thumbnail_comment' => $data['thumbnail_comment'],
-            'main_content' => $data['main_content'],
-            'post_state' => $data['post_state'],
+            'thumbnail_comment' => $post_data->thumbnail_comment,
+            'main_content' => $post_data->main_content,
+            'post_state' => $post_data->post_state,
             ];
+        return $array;
+    }
+    private function requestArrayBook(): array
+    {
+        $book_data = factory(Book::class)->make();
+        $array = [
+            'bookCode' => $book_data->bookCode,
+            'title' => $book_data->title,
+            'infoLink' => $book_data->infoLink,
+            'authors' => $book_data->authors,
+            'publishedDate' => $book_data->publishedDate,
+            'pageCount' => $book_data->pageCount,
+            'description' => $book_data->description,
+            'thumbnail' => $book_data->thumbnail,
+
+        ];
         return $array;
     }
 }
