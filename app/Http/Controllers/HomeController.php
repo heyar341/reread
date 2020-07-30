@@ -6,11 +6,14 @@ use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $user_info = auth()->user()->id ?? 'guest';
+        Log::info($user_info . ' accessed ' . url()->current() .' at ' . Carbon::now() .' IP: ' . $request->ip()/**$_SERVER["HTTP_X_FORWARDED_FOR"]*/);
         //読みにくいので没
 //        $posts = Post::with(['book','isLiked','user'=>
 //            function($query){$query->with(['profile'=>
