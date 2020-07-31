@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
          $defaultRules = [
             'intro_self' => 'string',
             'prof_url' => 'url',
-            'prof_image' => '',
+            'prof_image' => 'required',
         ];
 
          if(empty($this->intro_self)){
@@ -42,6 +42,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'url' => 'urlにはhttp://を含めてください。',
+            'required' => 'プロフィール画像を変更する、または変更しないをお選びください。',
         ];
     }
 }
