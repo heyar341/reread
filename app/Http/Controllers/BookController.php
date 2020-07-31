@@ -6,6 +6,7 @@ use App\Http\Requests\BookRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class BookController extends Controller
 {
@@ -34,7 +35,7 @@ class BookController extends Controller
         //各要素が空の場合の処理
         for($i=0;$i<10;$i++){
             if(empty($books[$i]['volumeInfo']['imageLinks']['thumbnail'])){
-                $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/no_image_avairable.png';
+                $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = Config::get('app.profile_image_url')."default-image/no_image_avairable.png";
             }
              if(empty($books[$i]['volumeInfo']['authors'])){
                  $books[$i]['volumeInfo']['authors'][0] = "不明";
