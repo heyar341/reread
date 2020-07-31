@@ -1,4 +1,4 @@
-@extends('layouts.top')
+@extends('layouts.standard')
 
 @section('content')
     <div class="container">
@@ -55,28 +55,24 @@
                 </div>
             @endforeach
         </div>
-        <div class="row book-search">
-            <div class="col-12">
+        <div class="book-search">
+            <div class="row col-12">
                 <h3 class="mt-5 mb-3">見つからない場合、より詳しく書籍の題名をご入力ください</h3>
-                <form class="mb-5" action="search" method="post">
-                    @csrf
-                    <div class="d-flex">
-                        <div>
-                            <input class="py-1 @error('bookName') is-invalid @enderror" type="text" name="bookName"
-                                   value="{{$book_name_base}}"
-                                   placeholder="書籍名を入力" style="width: 250px">
-                            @error('bookName')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <button class="btn btn-primary">本を検索</button>
-                        </div>
-                    </div>
-                </form>
             </div>
+            <form action="search" method="post">
+                @csrf
+                <div class="form-group">
+                    <input class="form-control py-1 @error('bookName') is-invalid @enderror" type="text" name="bookName"
+                           value="{{$book_name_base}}"
+                           placeholder="書籍名を入力">
+                    @error('bookName')
+                    <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                    @enderror
+                    </span>
+                </div>
+                <button class="form-control btn btn-primary">本を検索</button>
+            </form>
         </div>
     </div>
 @endsection
