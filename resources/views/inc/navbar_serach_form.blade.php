@@ -15,6 +15,15 @@
             </li>
         </ul>
 
+　　　　　{{--検索フォーム--}}
+        <form action="/post/search" class="form-inline my-2 my-md-0 d-flex" method="post">
+            @csrf
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="書籍名で投稿を検索">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
+            </div>
+        </form>
+
         {{--ナビゲーションバーの右側--}}
         <ul class="navbar-nav ml-auto mr-5">
             {{--ログインしていない場合--}}
