@@ -4,7 +4,7 @@
     <div class="container">
         <div class="col-12 mx-auto" style="max-width: 525px">
             <div class="d-flex align-items-center p-3 mt-3 text-white bg-primary rounded shadow-sm">
-                <img class="mr-3 rounded-circle" src="{{ $user->profile->prof_image }}"
+                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
                      width="65" height="65">
                 <div class="lh-100">
                     <h3 class="ml-2 mb-0 text-black lh-100">{{ $user->username }}</h3>

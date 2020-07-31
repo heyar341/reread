@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <label for="name" class="col-form-label">自己紹介</label>
                         {{--自己紹介--}}
-                        <textarea class="form-control" name="intro_self" required autocomplete="intro_self"
+                        <textarea class="form-control" name="intro_self" autocomplete="intro_self"
                                   autofocus>@if($user->profile->intro_self != 'Not Edited'){{--ユーザーが変更している場合--}}{{ old('intro_self') ?? $user->profile->intro_self }}@else{{--デフォルトの場合--}}{{ old('intro_self') ?? '' }}
                             @endif
                         </textarea>
@@ -40,22 +40,29 @@
 
                     <div class="form-group">
                         <label for="name" class="col-form-label">プロフィール画像</label><br>
-                        <img class="ml-2 mb-4 rounded-circle" src="{{ $user->profile->prof_image }}"
+                        <img class="ml-2 mb-4 rounded-circle" src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
                              width="100" height="100"><br>
 
                         <div class="input-selection">
                             <span><strong>プロフィール画像を：</strong></span>
                             <input type="radio" name="prof_image" value="no">変更しない
                             {{--ユーザーの画像がデフォルトでない場合のみ表示--}}
-                            @if($user->profile->prof_image != "https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png")
+                            @if($user->profile->prof_image != "default-image/profile_image_default.png")
                                 <input type="radio" name="prof_image"
-                                       value="https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png">
+                                       value="default-image/profile_image_default.png">
                                 デフォルト画像に戻す
                             @endif
                         </div>
                         <h6 class="my-3"><strong>または</strong></h6>
                         <input type="file" class="form-control-file" id="image" name="prof_image"
                                accept="image/png, image/jpeg, image/webp">
+
+                        <br>
+                        @error('prof_image')
+                        <span class="text-danger">
+                            ↑{{ $message }}
+                        </span>
+                        @enderror
                     </div>
                     <div class="row pt-3">
                         <button class="btn btn-primary">プロフィールを更新する</button>
