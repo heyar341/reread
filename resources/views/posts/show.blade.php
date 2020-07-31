@@ -43,7 +43,7 @@
                         <div class="mx-auto" style="max-width: 525px">
                             <h4>投稿者</h4>
                             <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
-                                <img class="mr-3 rounded-circle" src="{{ $post->user->profile->prof_image }}"
+                                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                      width="65" height="65">
                                 <div class="lh-100">
                                     <div class="d-flex">
@@ -92,7 +92,7 @@
                         <div class="mx-auto" style="max-width: 525px">
                             <h4>投稿者</h4>
                             <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
-                                <img class="mr-3 rounded-circle" src="{{ $post->user->profile->prof_image }}"
+                                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                      width="65" height="65">
                                 <div class="lh-100">
                                     <div class="d-flex">

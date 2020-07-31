@@ -45,7 +45,7 @@ class User extends Authenticatable
             $user->profile()->create([
                 'intro_self' => 'Not Edited',
                 'prof_url' => 'Not Edited',
-                'prof_image' => 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png',
+                'prof_image' => 'default-image/profile_image_default.png',
             ]);
         });
     }

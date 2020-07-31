@@ -29,14 +29,17 @@ class ProfileController extends Controller
         //文字が空の場合
         if (empty($request->input('intro_self'))) {
             $profile->intro_self = 'Not Edited';
-        } else {
+        }
+        else {
             $profile->intro_self = $request->input('intro_self');
         }
+
         //ユーザーのサイトURL
         //URLが空の場合
         if (empty($request->input('prof_url'))) {
             $profile->prof_url = 'Not Edited';
-        } else {
+        }
+        else {
             $profile->prof_url = $request->input('prof_url');
         }
 
@@ -44,24 +47,27 @@ class ProfileController extends Controller
         //画像を変更しない場合は何もしない
         if ($request->prof_image === 'no') {
         }
-        //ユーザーがデフォルトから変更後、もう一度デフォルトに戻る場合のため
-        elseif ($request->prof_image === 'https://reread-uploads.s3-ap-northeast-1.amazonaws.com/default-image/profile_image_default.png') {
+        //ユーザーがデフォルトから変更後、もう一度デフォルトに戻る場合
+        elseif ($request->prof_image === 'default-image/profile_image_default.png') {
             $profile->prof_image = $request->prof_image;
         }
         //画像を変更する場合
         else {
+            $disk = Storage::disk('s3');
+            if($user->profile->prof_image != 'default-image/profile_image_default.png') {
+                $disk->delete($user->profile->prof_image);
+            }
             //画像ファイルを変数に取り込む
             $imagefile = $request->file('prof_image');
             //画像の保存先パスを取得
-            $storagePath = $imagefile->store('uploads/profile_image', 's3');
+            $storagePath = $imagefile->store('profile_image', 's3');
             $image = Image::make($imagefile)->fit(300, 300);
-            Storage::disk('s3')->put($storagePath, (string)$image->encode(), 'public');
+            $disk->put($storagePath, (string)$image->encode());
 
+            $profile->prof_image = $storagePath;
 
-            //本番環境ではs3のバケットに合わせて変える
-            $profile->prof_image = "http://localhost:60007/test/" . $storagePath;
         }
             $profile->save();
-            return redirect("/profile/{$user->id}");
+            return redirect("/mypage/{$user->id}");
     }
 }

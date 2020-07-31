@@ -79,7 +79,7 @@
                                     <div class="d-flex pb-2 align-items-center">
                                         {{--ユーザー画像--}}
                                         <div class="ml-1 mt-2 pr-3">
-                                            <img src="{{ $post->user->profile->prof_image }}"
+                                            <img src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                                  class="w-100 rounded-circle" style="max-width: 40px">
                                         </div>
                                         {{--ユーザー名--}}
