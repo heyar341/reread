@@ -14,6 +14,7 @@
 Route::get('/','HomeController@index');
 Route::get('/today','HomeController@today');
 Route::get('/popular','HomeController@popular');
+Route::get('/search_post','HomeController@searchPost');
 
 Auth::routes();
 

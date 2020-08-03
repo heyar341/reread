@@ -14,11 +14,7 @@ class HomeController extends Controller
     {
         $user_info = auth()->user()->id ?? 'guest';
         Log::info($user_info . ' accessed ' . url()->current() .' at ' . Carbon::now() .' IP: ' . $request->ip()/**$_SERVER["HTTP_X_FORWARDED_FOR"]*/);
-        //読みにくいので没
-//        $posts = Post::with(['book','isLiked','user'=>
-//            function($query){$query->with(['profile'=>
-//                function($query){$query->with('followers');}
-//                ]);}])->where('post_state',1)->latest()->paginate(6);
+
         //クエリー発行数を減らすため、まとめて取得
         $posts = Post::with(['book','is_liked','user.profile.followers'])
             ->where('post_state',1)
@@ -46,11 +42,29 @@ class HomeController extends Controller
     {
         //withCountメソッドとorderByメソッドでお気に入りが多い順に並べ替え
         $posts = Post::with(['book','is_liked','user.profile.followers'])
-            ->withCount('is_liked')->orderBy('is_liked_count','desc')
-            ->where('post_state',1)->paginate(6);
+            ->where('post_state',1)
+            ->withCount('is_liked')
+            ->orderBy('is_liked_count','desc')
+            ->paginate(6);
 
         $title = "お気に入りが多い投稿";
 
         return view('home.home', compact('posts','title'));
     }
+
+    public function searchPost(Request $request)
+    {
+        //withCountメソッドとorderByメソッドでお気に入りが多い順に並べ替え
+        $posts = Post::with(['book','is_liked','user.profile.followers'])
+            ->select('*')
+            ->leftJoin('books','posts.book_id','=','books.id')
+            ->where('title','like','%'.$request->query_text.'%')
+            ->where('post_state',1)
+            ->paginate(6);
+
+        $title = "検索結果";
+
+        return view('home.home', compact('posts','title'));
+    }
+
 }
