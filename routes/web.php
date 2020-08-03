@@ -26,10 +26,11 @@ Route::post('favorite/{post}','FavoriteController@store');
 
 //Profile用ルート
 Route::middleware(['auth','check_login_user'])->group(function () {
-    Route::get('profile/{user}', 'ProfileController@index')->where('user', '[0-9]+');
     Route::get('profile/{user}/edit', 'ProfileController@edit')->where('user', '[0-9]+');
     Route::patch('profile/{user}', 'ProfileController@update')->where('user', '[0-9]+');
 });
+Route::get('profile/{user}', 'ProfileController@index')->where('user', '[0-9]+');
+
 //Post用ルート
 Route::resource('post','PostController');
 Route::post('post/search','PostController@search');
