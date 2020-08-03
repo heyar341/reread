@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\ProfileRequest;
+use App\Post;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
@@ -14,7 +15,12 @@ class ProfileController extends Controller
 {
     public function index(User $user)
     {
-        return view('profiles.index', compact('user'));
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->profile->id) : false ;
+        $posts = Post::with(['book','is_liked'])
+            ->where('user_id',$user->id)
+            ->where('post_state',1)
+            ->latest()->paginate(6);
+        return view('profiles.index', compact('user','posts','follows'));
     }
 
     public function edit(User $user)

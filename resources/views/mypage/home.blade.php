@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="col-12 mx-auto" style="max-width: 525px">
-            <div class="d-flex align-items-center p-3 mt-3 text-white bg-primary rounded shadow-sm">
+            <div class="d-flex align-items-center p-3 mt-3 text-white rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
                 <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
                      width="65" height="65">
                 <div class="lh-100">
