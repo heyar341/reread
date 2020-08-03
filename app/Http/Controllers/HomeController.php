@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
 use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -54,15 +55,26 @@ class HomeController extends Controller
 
     public function searchPost(Request $request)
     {
-        //withCountメソッドとorderByメソッドでお気に入りが多い順に並べ替え
-        $posts = Post::with(['book','is_liked','user.profile.followers'])
-            ->select('*')
-            ->leftJoin('books','posts.book_id','=','books.id')
-            ->where('title','like','%'.$request->query_text.'%')
-            ->where('post_state',1)
-            ->paginate(6);
+        $books = Book::query()->where('title','like','%'.$request->query_text.'%')->get();
 
-        $title = "検索結果";
+        $posts = [];
+        $title = "お探しの書籍の投稿はありません。";
+
+        //検索結果があった場合
+        if(count($books) > 0) {
+            //検索条件に一致したBookのidを配列に入れる
+            $books_id = [];
+            foreach ($books as $book) {
+                array_push($books_id, $book->id);
+            }
+            //book_idに入ったidに一致する投稿を取得
+            $posts = Post::with(['book', 'is_liked', 'user.profile.followers'])
+                ->whereIn('book_id', $books_id)
+                ->where('post_state', 1)
+                ->latest()
+                ->paginate(6);
+            $title = "検索結果";
+        }
 
         return view('home.home', compact('posts','title'));
     }
