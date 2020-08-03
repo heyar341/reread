@@ -54,7 +54,7 @@ class ProfileController extends Controller
         //画像を変更する場合
         else {
             $disk = Storage::disk('s3');
-            if($user->profile->prof_image != 'default-image/profile_image_default.png') {
+            if($profile->prof_image != 'default-image/profile_image_default.png' && $disk->exists($profile->prof_image)) {
                 $disk->delete($user->profile->prof_image);
             }
             //画像ファイルを変数に取り込む
