@@ -20,16 +20,29 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!--TinyMCE用 -->
-    <script src="https://cdn.tiny.cloud/1/bzhihshw66iu4sbm1p6ru690ztzi8ywr0lxhy0d4y9zb7mi0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/bzhihshw66iu4sbm1p6ru690ztzi8ywr0lxhy0d4y9zb7mi0/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
 
     <script>
         tinymce.init({
             selector: '#tinytextarea',
-            skin_url:'/myskin',
-            plugins:'preview',
+            skin_url: '/myskin',
+            plugins: 'preview',
             language: 'ja',
             menubar: false,
-            toolbar: 'formatselect | fontsizeselect',
+            style_formats: [
+                {title: '章', format: 'h1'},
+                {title: '節', format: 'h2'},
+                {title: '項', format: 'h3'},
+                {title: '本文', format: 'p'},
+                // {title: '文中オプション(選択中適用され続けます)', items: [
+                {title:'↓文中オプション(選択中適用され続けます。)'},
+                {title: '赤字', block: 'p', styles: {color: '#ff0000'}},
+                {title: 'Underline', format: 'underline'},
+                {title: 'Strikethrough', format: 'strikethrough'},
+                    // ]
+                // },
+            ],
         });
     </script>
 </head>
