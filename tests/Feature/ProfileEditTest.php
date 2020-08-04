@@ -26,7 +26,7 @@ class ProfileEditTest extends TestCase
         $test_image = UploadedFile::fake()->image('test.png');
         $response = $this->actingAs($user)->patch('/profile/' . $user->id
             ,[$this->requestArray(),'prof_image'=>$test_image]);
-        $response->assertRedirect("/profile/{$user->id}");
+        $response->assertRedirect("/mypage/{$user->id}");
     }
 
     //Profile更新時のダミーデータ

@@ -31,7 +31,8 @@
             <div class="col-12">
                 <hr style="max-width: 800px">
                 <div class="mx-auto" style="max-width: 640px;">
-                    <div class="main-content" style="min-height: 500px">{!! $post->main_content !!}</div>
+                    <div class="main-content bg-white" style="min-height: 500px">{!! $post->main_content !!}</div>
+                    <br>
                     <div class="viewed-count d-flex">
                         <div class="ml-auto mr-0">
                             <span><em>閲覧数：{{ $post->viewed_count }}</em></span>
@@ -41,8 +42,9 @@
                 @guest
                         <hr>
                         <div class="mx-auto" style="max-width: 525px">
+                            <br>
                             <h4>投稿者</h4>
-                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
+                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
                                 <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                      width="65" height="65">
                                 <div class="lh-100">
@@ -91,7 +93,7 @@
                     <hr>
                         <div class="mx-auto" style="max-width: 525px">
                             <h4>投稿者</h4>
-                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm">
+                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
                                 <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                      width="65" height="65">
                                 <div class="lh-100">
