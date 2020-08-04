@@ -11,12 +11,12 @@ use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    /** @test */
     use RefreshDatabase;
+    /** @test */
 
     public function not_login_profile_controller_test()
     {
-        $this->get('/profile/1')->assertRedirect('/login');
+        $this->get('/profile/1')->assertStatus(404);
         $this->get('/profile/1/edit')->assertRedirect('/login');
     }
 
@@ -30,7 +30,7 @@ class ProfileTest extends TestCase
         $dummy = UploadedFile::fake()->image('aaa.png');
         $response = $this->actingAs($user)->patch('/profile/' . $user->id,
             [$this->requestArray(), 'prof_image' => $dummy]);
-        $response->assertRedirect("/profile/{$user->id}");
+        $response->assertRedirect("/mypage/{$user->id}");
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class ProfileTest extends TestCase
         //他のユーザーページにアクセスしようとすると弾かれてホームページに飛ばされる。
         $user2 = factory(User::class)->create();
         $user3 = factory(User::class)->create();
-        $this->actingAs($user2)->get("/profile/{$user3->id}")->assertRedirect('/')
+        $this->actingAs($user2)->get("/mypage/{$user3->id}")->assertRedirect('/')
             ->assertSessionHas('error', '他のユーザーのページです。');
         $this->actingAs($user2)->get("/profile/{$user3->id}/edit")->assertRedirect('/')
             ->assertSessionHas('error', '他のユーザーのページです。');
