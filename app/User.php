@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,42 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user){
+            $user->profile()->create([
+                'intro_self' => 'Not Edited',
+                'prof_url' => 'Not Edited',
+                'prof_image' => 'default-image/profile_image_default.png',
+            ]);
+        });
+    }
+
+//Profile関連
+//　Userが持つprofile
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+//  Userがfollowする
+    public function following()
+    {
+        return $this->belongsToMany('App\Profile');
+    }
+
+//Post関連
+//  Userが投稿する
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+//  Userがお気に入りに追加する
+    public function likes()
+    {
+        return $this->belongsToMany('App\Post');
+    }
+
 }
