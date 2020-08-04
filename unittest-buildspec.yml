@@ -5,8 +5,8 @@ phases:
     commands:
       - echo Install started on `date`
       - composer install
-      - cp .env.example .env.testing
-      - php artisan key:gen -env=testing
+      - cp .env.example .env
+      - php artisan key:gen
   build:
     commands:
       - echo Build started on `date`
