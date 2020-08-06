@@ -82,6 +82,25 @@
                             </div>
                         </div>
                     </form>
+                    <br>
+                    <hr>
+                        <form method="POST" action="{{ route('login') }}">
+                            <div class="form-group row">
+                                <div class="mx-auto"><span>機能をお試しの方はこちらのボタンからログインをお願いします。</span>
+                                </div>
+                            </div>
+                            @csrf
+                            <input id="username" type="hidden" name="username" value="テストユーザー">
+                            <input id="password" type="hidden" name="password" value="testtest">
+
+                            <div class="form-group row mb-0">
+                                <div class="mx-auto">
+                                    <button type="submit" class="btn btn-success">
+                                        テストユーザーとしてログイン
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                 </div>
             </div>
         </div>
