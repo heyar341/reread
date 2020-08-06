@@ -99,7 +99,7 @@
                                 <div class="lh-100">
                                     <div class="d-flex">
                                         <a href="/profile/{{$post->user_id}}" style="color: white">
-                                            <h3 class="ml-2 mb-0 lh-100">{{ $post->user->username }}</h3>
+                                            <h3 class="ml-2 mb-0 lh-100 mr-4">{{ $post->user->username }}</h3>
                                         </a>
                                         <follow-button user-id="{{ $post->user->id }}" follows="{{ $follows }}"></follow-button>
                                     </div>
