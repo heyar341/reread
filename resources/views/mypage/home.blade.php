@@ -8,7 +8,7 @@
                      width="65" height="65">
                 <div class="lh-100">
                     <h3 class="ml-2 mb-0 text-black lh-100">{{ $user->username }}</h3>
-                    <div>@if($user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $user->profile->prof_url }}</a>@endif</div>
+                    <div>@if($user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="{{ $user->profile->prof_url }}" style="color: #ffffff">{{ $user->profile->prof_url }}</a>@endif</div>
                 </div>
             </div>
 
