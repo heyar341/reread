@@ -32,26 +32,30 @@ class BookController extends Controller
         //paginate()はDBに対してのメソッドだから使えない
         $books = $json_decoded_results['items'];
 
+        //httpのままだと、保護されていない通信の表示が出るので、httpをhttpsに置換する。
+        for($i=0;$i<10;$i++){
+            $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = str_replace("http","https",$books[$i]['volumeInfo']['imageLinks']['thumbnail']);
+        }
+
         //各要素が空の場合の処理
         for($i=0;$i<10;$i++){
             if(empty($books[$i]['volumeInfo']['imageLinks']['thumbnail'])){
                 $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = Config::get('app.profile_image_url')."default-image/no_image_avairable.png";
             }
-             if(empty($books[$i]['volumeInfo']['authors'])){
+            if(empty($books[$i]['volumeInfo']['authors'])){
                  $books[$i]['volumeInfo']['authors'][0] = "不明";
              }
-             if(empty($books[$i]['volumeInfo']['publishedDate'])){
+            if(empty($books[$i]['volumeInfo']['publishedDate'])){
                  $books[$i]['volumeInfo']['publishedDate'] = "不明";
              }
-             if(empty($books[$i]['volumeInfo']['pageCount'])){
+            if(empty($books[$i]['volumeInfo']['pageCount'])){
                  $books[$i]['volumeInfo']['pageCount'] = "不明";
              }
-             if(empty($books[$i]['volumeInfo']['description'])){
+            if(empty($books[$i]['volumeInfo']['description'])){
                  $books[$i]['volumeInfo']['description'] = "･･･";
              }
         }
 
-//        dd($books);
         return view('book.show',compact('books','book_name_base'));
     }
 
