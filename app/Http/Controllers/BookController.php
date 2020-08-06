@@ -32,16 +32,17 @@ class BookController extends Controller
         //paginate()はDBに対してのメソッドだから使えない
         $books = $json_decoded_results['items'];
 
-        //httpのままだと、保護されていない通信の表示が出るので、httpをhttpsに置換する。
         for($i=0;$i<10;$i++){
-            $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = str_replace("http","https",$books[$i]['volumeInfo']['imageLinks']['thumbnail']);
-        }
-
-        //各要素が空の場合の処理
-        for($i=0;$i<10;$i++){
+            //サムネイル画像が空の場合
             if(empty($books[$i]['volumeInfo']['imageLinks']['thumbnail'])){
                 $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = Config::get('app.profile_image_url')."default-image/no_image_avairable.png";
             }
+            //httpのままだと、保護されていない通信の表示が出るので、httpをhttpsに置換する。
+            else {
+                $books[$i]['volumeInfo']['imageLinks']['thumbnail'] = str_replace("http", "https", $books[$i]['volumeInfo']['imageLinks']['thumbnail']);
+            }
+
+            //各要素が空の場合の処理
             if(empty($books[$i]['volumeInfo']['authors'])){
                  $books[$i]['volumeInfo']['authors'][0] = "不明";
              }
