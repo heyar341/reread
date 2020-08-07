@@ -3,12 +3,16 @@
 @section('content')
     <div class="container">
         <div class="col-12 mx-auto" style="max-width: 525px">
-            <div class="d-flex align-items-center p-3 mt-3 text-white rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
-                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
+            <div class="d-flex align-items-center p-3 mt-3 text-white rounded shadow-sm"
+                 style="background-color: rgba(0,182,16,0.27)">
+                <img class="mr-3 rounded-circle"
+                     src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
                      width="65" height="65">
                 <div class="lh-100">
                     <h3 class="ml-2 mb-0 text-black lh-100">{{ $user->username }}</h3>
-                    <div>@if($user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="{{ $user->profile->prof_url }}" style="color: #ffffff">{{ $user->profile->prof_url }}</a>@endif</div>
+                    <div>@if($user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a
+                                href="{{ $user->profile->prof_url }}"
+                                style="color: #ffffff">{{ $user->profile->prof_url }}</a>@endif</div>
                 </div>
             </div>
 
@@ -56,7 +60,8 @@
                 <div class="media text-muted pt-3">
                     <div class="media-body py-2 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <a href="../mypage/{{ $user->id }}/delete_confirm"><h5 class="text-gray-dark">アカウントの削除</h5></a>
+                            <a href="../mypage/{{ $user->id }}/delete_confirm"><h5 class="text-gray-dark">アカウントの削除</h5>
+                            </a>
                         </div>
                     </div>
                 </div>

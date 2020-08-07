@@ -41,7 +41,7 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::created(function ($user){
+        static::created(function ($user) {
             $user->profile()->create([
                 'intro_self' => 'Not Edited',
                 'prof_url' => 'Not Edited',
@@ -56,6 +56,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Profile');
     }
+
 //  Userがfollowする
     public function following()
     {
@@ -68,6 +69,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+
 //  Userがお気に入りに追加する
     public function likes()
     {

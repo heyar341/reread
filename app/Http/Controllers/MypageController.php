@@ -26,10 +26,10 @@ class MypageController extends Controller
         if ($post_state == 1) {
             $title = "公開済みの投稿";
         }
-        if ($post_state == 2) {
+        elseif ($post_state == 2) {
             $title = "非公開の投稿";
         }
-        if ($post_state == 3) {
+        elseif ($post_state == 3) {
             $title = "下書きの投稿";
         }
         return view('mypage.postshow', compact('posts', 'user', 'title'));
@@ -84,19 +84,19 @@ class MypageController extends Controller
     //ユーザーアカウント削除
     public function delete(User $user)
     {
-        if($user->likes()) {
+        if ($user->likes()) {
             $user->likes()->detach();
         }
-        if($user->following()) {
+        if ($user->following()) {
             $user->following()->detach();
         }
-        if($user->profile->followers()) {
+        if ($user->profile->followers()) {
             $user->profile->followers()->detach();
         }
-        if($user->posts()) {
+        if ($user->posts()) {
             $posts = $user->posts();
-            foreach ($posts as $post){
-                if(!empty($post->is_liked()->first())) {
+            foreach ($posts as $post) {
+                if (!empty($post->is_liked()->first())) {
                     $user->posts->is_liked()->detach();
                 }
                 $post->book()->detach();
