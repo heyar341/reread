@@ -36,11 +36,11 @@
                 {title: '項', format: 'h3'},
                 {title: '本文', format: 'p'},
                 // {title: '文中オプション(選択中適用され続けます)', items: [
-                {title:'↓文中オプション(選択中適用され続けます。)'},
+                {title: '↓文中オプション(選択中適用され続けます。)'},
                 {title: '赤字', block: 'p', styles: {color: '#ff0000'}},
                 {title: 'Underline', format: 'underline'},
                 {title: 'Strikethrough', format: 'strikethrough'},
-                    // ]
+                // ]
                 // },
             ],
         });

@@ -39,19 +39,24 @@
                         </div>
                     </div>
                     {{--登録していないユーザー用--}}
-                @guest
+                    @guest
                         <hr>
                         <div class="mx-auto" style="max-width: 525px">
                             <br>
                             <h4>投稿者</h4>
-                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
-                                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
+                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm"
+                                 style="background-color: rgba(0,182,16,0.27)">
+                                <img class="mr-3 rounded-circle"
+                                     src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
                                      width="65" height="65">
                                 <div class="lh-100">
                                     <div class="d-flex">
                                         <h3 class="ml-2 mb-0 text-black lh-100">{{ $post->user->username }}</h3>
                                     </div>
-                                    <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif</div>
+                                    <div>@if($post->user->profile->prof_url != 'Not Edited')<span
+                                                class="px-2">サイトURL:</span><a href="#"
+                                                                              style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -63,55 +68,61 @@
                     @endguest
                     @auth
                         {{--投稿ユーザー用--}}
-                    @if($post->user_id == auth()->user()->id)
-                        <div class="form-end mt-4 d-flex">
-                            <div class="mx-auto">
-                                <span>投稿の状態：</span>
-                                <span class="py-1 px-2 border rounded border-info">
+                        @if($post->user_id == auth()->user()->id)
+                            <div class="form-end mt-4 d-flex">
+                                <div class="mx-auto">
+                                    <span>投稿の状態：</span>
+                                    <span class="py-1 px-2 border rounded border-info">
                                     @if($post->post_state==1)公開
-                                    @elseif($post->post_state==2)非公開
-                                    @else下書
-                                    @endif
+                                        @elseif($post->post_state==2)非公開
+                                        @else下書
+                                        @endif
                             </span>
-                            </div>
-                        </div>
-                        <div class="post-show-button d-flex mt-2">
-                            <a href="/post/{{ $post->id }}/edit" class="mr-auto">
-                                <button class="btn btn-success">投稿を編集する</button>
-                            </a>
-                            <form action="/post/{{ $post->id }}" class="ml-auto align-items-end" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-danger">投稿を削除する</button>
-                            </form>
-                        </div>
-                    @else
-                    {{--ログイン済みの閲覧ユーザー用--}}
-                    <div class="mb-5">
-                        <favorite-button post-id = "{{$post->id}}" favorite="{{ $favorite }}"></favorite-button>
-                    </div>
-                    <hr>
-                        <div class="mx-auto" style="max-width: 525px">
-                            <h4>投稿者</h4>
-                            <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
-                                <img class="mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
-                                     width="65" height="65">
-                                <div class="lh-100">
-                                    <div class="d-flex">
-                                        <a href="/profile/{{$post->user_id}}" style="color: white">
-                                            <h3 class="ml-2 mb-0 lh-100 mr-4">{{ $post->user->username }}</h3>
-                                        </a>
-                                        <follow-button user-id="{{ $post->user->id }}" follows="{{ $follows }}"></follow-button>
-                                    </div>
-                                        <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#" style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif</div>
                                 </div>
                             </div>
-
-                            <div class="border bg-white" style="min-height: 100px">
-                                <h6 class="ml-1">自己紹介：</h6>
-                                <p class="ml-2">@if($post->user->profile->intro_self != 'Not Edited'){{ $post->user->profile->intro_self }}@endif</p>
+                            <div class="post-show-button d-flex mt-2">
+                                <a href="/post/{{ $post->id }}/edit" class="mr-auto">
+                                    <button class="btn btn-success">投稿を編集する</button>
+                                </a>
+                                <form action="/post/{{ $post->id }}" class="ml-auto align-items-end" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger">投稿を削除する</button>
+                                </form>
                             </div>
-                        </div>
+                        @else
+                            {{--ログイン済みの閲覧ユーザー用--}}
+                            <div class="mb-5">
+                                <favorite-button post-id="{{$post->id}}" favorite="{{ $favorite }}"></favorite-button>
+                            </div>
+                            <hr>
+                            <div class="mx-auto" style="max-width: 525px">
+                                <h4>投稿者</h4>
+                                <div class="d-flex align-items-center p-3 mt-3 border rounded shadow-sm"
+                                     style="background-color: rgba(0,182,16,0.27)">
+                                    <img class="mr-3 rounded-circle"
+                                         src="{{config('app.profile_image_url')}}{{ $post->user->profile->prof_image }}"
+                                         width="65" height="65">
+                                    <div class="lh-100">
+                                        <div class="d-flex">
+                                            <a href="/profile/{{$post->user_id}}" style="color: white">
+                                                <h3 class="ml-2 mb-0 lh-100 mr-4">{{ $post->user->username }}</h3>
+                                            </a>
+                                            <follow-button user-id="{{ $post->user->id }}"
+                                                           follows="{{ $follows }}"></follow-button>
+                                        </div>
+                                        <div>@if($post->user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span>
+                                            <a href="#"
+                                               style="color: #ffffff">{{ $post->user->profile->prof_url }}</a>@endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border bg-white" style="min-height: 100px">
+                                    <h6 class="ml-1">自己紹介：</h6>
+                                    <p class="ml-2">@if($post->user->profile->intro_self != 'Not Edited'){{ $post->user->profile->intro_self }}@endif</p>
+                                </div>
+                            </div>
                         @endif
                     @endauth
                 </div>

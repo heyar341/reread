@@ -12,23 +12,24 @@
         @if(empty($follows))
             <h2 class="text-muted">フォローしたユーザーはいません。</h2>
         @else
-                @foreach($follows as $follow)
+            @foreach($follows as $follow)
                 <div class="row col-12 justify-content-center">
                     <div class="d-flex align-items-center bg-white rounded border"
                          style="height: 80px; min-width: 300px">
-                            <div>
-                                <img class="ml-2 mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $follow->prof_image }}"
-                                     width="50" height="50">
-                            </div>
-                            <div>
-                                <a href="/profile/{{ $follow->user_id }}">
-                                    <span class="text-dark">{{ $follow->user->username}}</span>
-                                </a>
-                            </div>
+                        <div>
+                            <img class="ml-2 mr-3 rounded-circle"
+                                 src="{{config('app.profile_image_url')}}{{ $follow->prof_image }}"
+                                 width="50" height="50">
+                        </div>
+                        <div>
+                            <a href="/profile/{{ $follow->user_id }}">
+                                <span class="text-dark">{{ $follow->user->username}}</span>
+                            </a>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        @endif
+                </div>
+            @endforeach
+    </div>
+    @endif
     </div>
 @endsection

@@ -49,14 +49,14 @@
                                     </div>
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small
-                                                class="text-muted">投稿日時</small></div>
+                                                    class="text-muted">投稿日時</small></div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex border-bottom align-items-center">
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small class="text-muted"
-                                                {{--isliked->count()だとクエリーが発行されるので、Eloquentのオブジェクト数を数えるようにした--}}
+                                                    {{--isliked->count()だとクエリーが発行されるので、Eloquentのオブジェクト数を数えるようにした--}}
                                             >{{ count($post->is_liked) }}</small></div>
                                     </div>
                                     <div class="col-4 d-flex">
@@ -65,7 +65,8 @@
                                     </div>
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small
-                                                class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small></div>
+                                                    class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -85,7 +86,7 @@
                                         </div>
                                         <div>
                                             <small
-                                                class="ml-3 text-muted">フォロワー：{{ count($post->user->profile->followers) }}
+                                                    class="ml-3 text-muted">フォロワー：{{ count($post->user->profile->followers) }}
                                                 人</small>
                                         </div>
                                     </div>
@@ -98,10 +99,10 @@
         </div>
     </div>
     @if(count($posts) > 5)
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            {{ $posts->links() }}
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                {{ $posts->links() }}
+            </div>
         </div>
-    </div>
     @endif
 @endsection

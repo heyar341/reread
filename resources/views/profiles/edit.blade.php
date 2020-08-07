@@ -25,10 +25,10 @@
                     <div class="form-group">
                         <label for="name" class="col-form-label">ご自身のサイトなどのURL</label>
                         <input
-                            type="text"
-                            class="form-control @error('prof_url') is-invalid @enderror"
-                            name="prof_url"
-                            value=@if($user->profile->prof_url != 'Not Edited')"{{ old('prof_url') ?? $user->profile->prof_url}}"@else
+                                type="text"
+                                class="form-control @error('prof_url') is-invalid @enderror"
+                                name="prof_url"
+                                value=@if($user->profile->prof_url != 'Not Edited')"{{ old('prof_url') ?? $user->profile->prof_url}}"@else
                             "{{ old('prof_url') ?? '' }}"@endif autocomplete="url" autofocus>
 
                         @error('prof_url')
@@ -40,7 +40,8 @@
 
                     <div class="form-group">
                         <label for="name" class="col-form-label">プロフィール画像</label><br>
-                        <img class="ml-2 mb-4 rounded-circle" src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
+                        <img class="ml-2 mb-4 rounded-circle"
+                             src="{{config('app.profile_image_url')}}{{ $user->profile->prof_image }}"
                              width="100" height="100"><br>
 
                         <div class="input-selection">
