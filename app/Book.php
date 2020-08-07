@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany('App\Post');
     }
 }

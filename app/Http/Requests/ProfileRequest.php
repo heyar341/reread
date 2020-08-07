@@ -23,16 +23,16 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-         $defaultRules = [
+        $defaultRules = [
             'intro_self' => 'string',
             'prof_url' => 'url',
             'prof_image' => 'required',
         ];
 
-         if(empty($this->intro_self)){
-             unset($defaultRules['intro_self']);
-         }
-        if(empty($this->prof_url)){
+        if (empty($this->intro_self)) {
+            unset($defaultRules['intro_self']);
+        }
+        if (empty($this->prof_url)) {
             unset($defaultRules['prof_url']);
         }
         return $defaultRules;

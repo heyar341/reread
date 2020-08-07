@@ -1,11 +1,12 @@
 @extends('layouts.standard')
 
 @section('content')
-{{--    <div class="container">--}}
-{{--    </div>--}}
+    {{--    <div class="container">--}}
+    {{--    </div>--}}
     <div class="container-home container" id="">
         <div class="row mx-auto" style="max-width: 525px">
-            <div class="col-12 d-flex p-3 mt-3 text-white rounded shadow-sm" style="background-color: rgba(0,182,16,0.27)">
+            <div class="col-12 d-flex p-3 mt-3 text-white rounded shadow-sm"
+                 style="background-color: rgba(0,182,16,0.27)">
 
                 <div class="row align-items-center" style="width: 100%">
                     <div class="col-sm-3 col-12">
@@ -26,10 +27,12 @@
                         @endif
                     @endauth
 
-                    <div>@if($user->profile->prof_url != 'Not Edited')<span class="px-2">サイトURL:</span><a href="#"
-                                                                                                          style="color: #ffffff">{{ $user->profile->prof_url }}</a>@endif
+                    <div>@if($user->profile->prof_url != 'Not Edited')
+                            <span class="px-2">サイトURL:</span><a href="#"
+                                                                style="color: #ffffff">{{ $user->profile->prof_url }}</a>
+                        @endif
                     </div>
-            </div>
+                </div>
             </div>
 
             <div class="col-12 border bg-white" style="min-height: 100px">
@@ -81,14 +84,14 @@
                                     </div>
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small
-                                                class="text-muted">投稿日時</small></div>
+                                                    class="text-muted">投稿日時</small></div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex border-bottom align-items-center">
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small class="text-muted"
-                                                {{--isliked->count()だとクエリーが発行されるので、Eloquentのオブジェクト数を数えるようにした--}}
+                                                    {{--isliked->count()だとクエリーが発行されるので、Eloquentのオブジェクト数を数えるようにした--}}
                                             >{{ count($post->is_liked) }}</small></div>
                                     </div>
                                     <div class="col-4 d-flex">
@@ -97,7 +100,8 @@
                                     </div>
                                     <div class="col-4 d-flex">
                                         <div class="mx-auto"><small
-                                                class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small></div>
+                                                    class="text-muted">{{ mb_substr($post->created_at,0,10) }}</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

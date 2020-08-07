@@ -17,7 +17,8 @@
                     <div class="d-flex align-items-center bg-white rounded border"
                          style="height: 80px; min-width: 300px">
                         <div>
-                            <img class="ml-2 mr-3 rounded-circle" src="{{config('app.profile_image_url')}}{{ $follower->profile->prof_image }}"
+                            <img class="ml-2 mr-3 rounded-circle"
+                                 src="{{config('app.profile_image_url')}}{{ $follower->profile->prof_image }}"
                                  width="50" height="50">
                         </div>
                         <div>
